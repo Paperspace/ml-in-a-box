@@ -18,9 +18,32 @@ Some particular software choices are also influenced by assumed details about a 
 
 ## Software included
 
-Currently we plan to install the following data science software:
+Currently we plan to install the following data science software. The list is in alphabetical order.
 
-**TODO**: Table
+Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 and Axxx GPUs to work, Nvidia being our primary provider of GPUs on the Paperspace cloud at present.
+
+**TODO**: Licenses, exact version numbers
+
+| Software | Version | Why / Notes |
+| ------------- | ------------- | ------------- |
+| Atom | 1.58 | Text editor |
+| Chrome | 93.0 | Web browser |
+| CUDA | 11.4 | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
+| cuDNN | 8.2 | Nvidia GPU deep learning library |
+| Docker CE | 20.10 | Containers. CE = community edition |
+| H2O-3 | 3.34 | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
+| JupyterLab | 3.1 | De facto standard for data science using Jupyter notebooks |
+| Matplotlib | 3.4 | Widely used plotting library in Python for data science |
+| NumPy | 1.21 | Handle arrays, matrices, etc., in Python |
+| NVidia-Docker | 2.6 | Enable NVidia containers |
+| NVidia Driver | R.. | Enable Nvidia GPUs. Latest version as of VM creation date |
+| Nvidia RAPIDS | 21.08 | GPU acceleration for common ML algorithms |
+| Pandas | 1.3 | De facto standard for data science data exploration/preparation in Python |
+| Pip3 | 21.2 | Enable easy installation of 1000s of other data science, etc., packages |
+| PyTorch | 1.9 | Most widely used deep learning library, alongside TensorFlow |
+| Python | 3.9 | Most widely used programming language for data science. Version 3.9 is compatible with other software and their versions installed here. |
+| Scikit-learn | 0.24 | Widely used ML library for data science, generally for smaller data or models |
+| TensorFlow | 2.5 | Most widely used deep learning library, alongside PyTorch |
 
 ## Software not included
 
@@ -32,6 +55,7 @@ Some generic categories of software not included:
 
  - Non-data-science software
  - Commercial software
+ - Software not licensed to be used on an available VM template
  - Software only used in particular specialized data science subfields (although we assume our users probably want a GPU)
 
 **TODO**: Table
@@ -39,3 +63,13 @@ Some generic categories of software not included:
 ## Script
 
 **TODO**: Add script and how to run it on the VM to install the software and make the VM a template
+
+## References
+
+Some useful references in deriving the software stack were:
+
+ - prev stack
+ - nvidia stacks working combos
+ - medium blog
+ - anaconda
+ - Nick's own notes/lists

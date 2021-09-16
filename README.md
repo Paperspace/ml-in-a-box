@@ -1,5 +1,7 @@
 # ML in a Box
 
+**IN PROGRESS: Readme is not finished**
+
 Last updated: Sep 16th 2021
 
 This is to update the Paperspace Core "ML-in-a-Box" template VM image from Ubuntu 18.04 to 20.04.
@@ -65,6 +67,8 @@ Some generic categories of software not included:
 **TODO**: Add script and how to run it on the VM to install the software and make the VM a template
 
 ## References
+
+**TODO**: Finish
 
 Some useful references in deriving the software stack were:
 

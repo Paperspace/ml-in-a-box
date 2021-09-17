@@ -1,8 +1,8 @@
 # ML in a Box
 
-**IN PROGRESS: Readme is not finished**
+**IN PROGRESS: Repo is not finished**
 
-Last updated: Sep 16th 2021
+Last updated: Sep 17th 2021
 
 This is to update the Paperspace Core "ML-in-a-Box" template VM image from Ubuntu 18.04 to 20.04.
 
@@ -61,7 +61,35 @@ Some generic categories of software not included:
  - Software not licensed to be used on an available VM template
  - Software only used in particular specialized data science subfields (although we assume our users probably want a GPU)
 
-**TODO**: Table
+| Category | Software | Why Not |
+| ------------- | ------------- | ------------- |
+| Apache | Kafka, Parquet | |
+| Classifiers | libsvm, XGBoost | H2O contains SVM and GBM, save on installs |
+| Collections | ELKI, GNU Octave, Weka, Mahout | |
+| Connectors | S3, Academic Torrents, Google Drive | |
+| Dashboarding | panel, dash, voila, streamlit | |
+| Databases | MySQL, Hive, PostgreSQL, Prometheus, Neo4j, MongoDB, Cassandra, Redis | No particular infra to connect to databases |
+| Deep Learning | Caffe, Caffe2, Theano, Keras, PaddlePaddle, Chainer, Torch, MXNet | PyTorch and TensorFlow are dominant, rest niche |
+| Deployment | Dash, TFServing, R Shiny, Flask | Use Gradient Deployments |
+| Distributed | Horovod, OpenMPI | Use Gradient distributed |
+| Feature store | Feast | |
+| IDEs | PyCharm, Spyder, RStudio | |
+| Image proc | OpenCV, Pillow, scikit-image | |
+| Interpretability | LIME/SHAP, Fairlearn, AI Fairness 360, InterpretML | |
+| Languages | R, SQL, Java, Julia, C++, JavaScript, Python2, Scala | Python is dominant for data science |
+| Monitoring | Grafana | |
+| NLP | HuggingFace, NLTK, GenSim, spaCy | |
+| Notebooks | Jupyter, Zeppelin | JupyterLab includes Jupyter notebook |
+| Orchestrators | Kubernetes | Use Gradient cluster|
+| Partners | fast.ai | Could add if we want partner functionality |
+| Pipelines | AirFlow, MLFlow, Intake, Kubeflow | |
+| Python libraries | SciPy, statsmodels, pymc3, geopandas, Geopy, LIBSVM | Too many to attempt to cover |
+| PyTorch extensions | Lightning | |
+| R packages | ggplot, tidyverse | Could add R if customer demand |
+| Recommenders | TFRS, scikit-surprise | |
+| Scalable | Dask, Numba, Spark 1 or 2, Koalas, Hadoop | |
+| TensorFlow | TF 1.15, Datasets, Recommenders, TensorBoard, TensorRT | Could add TensorFlow 1.x if customer demand |
+| Viz | Bokeh, Plotly, Holoviz (Datashader), Seaborn, Google FACETS, Excalidraw, GraphViz, ggplot2, d3.js | |
 
 ## Script
 

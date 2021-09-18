@@ -40,9 +40,9 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 | Matplotlib | 3.4.3 | Widely used plotting library in Python for data science, e.g., scikit-learn plotting requires it |
 | JupyterLab | 3.1.12 | De facto standard for data science using Jupyter notebooks |
 | H2O-3 | 3.34 | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
-| Scikit-learn | 0.24 | Widely used ML library for data science, generally for smaller data or models |
+| Scikit-learn | 0.24.2 | Widely used ML library for data science, generally for smaller data or models |
 | **TODO** | | |
-| TensorFlow | 2.5 | Most widely used deep learning library, alongside PyTorch |
+| TensorFlow | 2.5.0 | Most widely used deep learning library, alongside PyTorch |
 | Nvidia RAPIDS | 21.08 | GPU acceleration for common ML algorithms |
 | PyTorch | 1.9 | Most widely used deep learning library, alongside TensorFlow |
 | Atom | 1.58 | Text editor. Has built-in support for Git. |

@@ -2,7 +2,7 @@
 
 **IN PROGRESS: Repo is not finished**
 
-Last updated: Sep 17th 2021
+Last updated: Sep 18th 2021
 
 This is to update the Paperspace Core "ML-in-a-Box" template VM image from Ubuntu 18.04 to 20.04.
 
@@ -37,16 +37,16 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 | pip3 | 20.0.2 | Enable easy installation of 1000s of other data science, etc., packages. Is a version 21.2 but apt-get install for Python 3.8 gives 20.0.2, which is OK. |
 | NumPy | 1.21.2 | Handle arrays, matrices, etc., in Python |
 | Pandas | 1.3.3 | De facto standard for data science data exploration/preparation in Python |
-| Matplotlib | 3.4.3 | Widely used plotting library in Python for data science |
-| **TODO** | | |
-| JupyterLab | 3.1 | De facto standard for data science using Jupyter notebooks |
+| Matplotlib | 3.4.3 | Widely used plotting library in Python for data science, e.g., scikit-learn plotting requires it |
+| JupyterLab | 3.1.12 | De facto standard for data science using Jupyter notebooks |
 | H2O-3 | 3.34 | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
+| Scikit-learn | 0.24 | Widely used ML library for data science, generally for smaller data or models |
+| **TODO** | | |
+| TensorFlow | 2.5 | Most widely used deep learning library, alongside PyTorch |
 | Nvidia RAPIDS | 21.08 | GPU acceleration for common ML algorithms |
 | PyTorch | 1.9 | Most widely used deep learning library, alongside TensorFlow |
-| Scikit-learn | 0.24 | Widely used ML library for data science, generally for smaller data or models |
-| TensorFlow | 2.5 | Most widely used deep learning library, alongside PyTorch |
-| Atom | 1.58 | Text editor |
-| Chrome | 93.0 | Web browser |
+| Atom | 1.58 | Text editor. Has built-in support for Git. |
+| Chrome | 93.0 | Web browser, e.g., for JupyterLab |
 
 ## Software not included
 
@@ -89,12 +89,12 @@ Some generic categories of software not included:
 | R packages | ggplot, tidyverse | Could add R if customer demand |
 | Recommenders | TFRS, scikit-surprise | |
 | Scalable | Dask, Numba, Spark 1 or 2, Koalas, Hadoop | |
-| TensorFlow | TF 1.15, Datasets, Recommenders, TensorBoard, TensorRT | Could add TensorFlow 1.x if customer demand |
+| TensorFlow | TF 1.15, Datasets, Recommenders, TensorBoard, TensorRT | Could add TensorFlow 1.x if customer demand. Requires separate tensorflow-gpu for GPU support. |
 | Viz | Bokeh, Plotly, Holoviz (Datashader), Seaborn, Google FACETS, Excalidraw, GraphViz, ggplot2, d3.js | |
 
 ## Script
 
-**TODO**: Add script and how to run it on the VM to install the software and make the VM a template
+**TODO**: Add script info and how to run it on the VM to install the software and make the VM a template
 
 ## References
 

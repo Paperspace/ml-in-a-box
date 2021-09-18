@@ -31,14 +31,14 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 | NVidia Driver | 470.63.01 | Enable Nvidia GPUs. Latest version as of VM creation date |
 | CUDA | 11.4 | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
 | cuDNN | 8.2.4.15-1+cuda11.4 | Nvidia GPU deep learning library. Also CUDA toolkit. |
+| Docker Engine CE | 20.10.8, build 3967b7d | Docker Enginer community edition |
+| NVidia-Docker | 2.6.0 | Enable NVidia GPU in Docker containers |
+| Python | 3.8.10 | Most widely used programming language for data science. Version 3.8.10 is already installed by one of the above steps, and is compatible with other software and their versions installed here. |
+| pip3 | 20.0.2 | Enable easy installation of 1000s of other data science, etc., packages. Is a version 21.2 but apt-get install for Python 3.8 gives 20.0.2, which is OK. |
+| NumPy | 1.21.2 | Handle arrays, matrices, etc., in Python |
+| Pandas | 1.3.3 | De facto standard for data science data exploration/preparation in Python |
+| Matplotlib | 3.4.3 | Widely used plotting library in Python for data science |
 | **TODO** | | |
-| Docker CE | 20.10 | Containers. CE = community edition |
-| NVidia-Docker | 2.6 | Enable NVidia containers |
-| Python | 3.9 | Most widely used programming language for data science. Version 3.9 is compatible with other software and their versions installed here. |
-| Pip3 | 21.2 | Enable easy installation of 1000s of other data science, etc., packages |
-| NumPy | 1.21 | Handle arrays, matrices, etc., in Python |
-| Pandas | 1.3 | De facto standard for data science data exploration/preparation in Python |
-| Matplotlib | 3.4 | Widely used plotting library in Python for data science |
 | JupyterLab | 3.1 | De facto standard for data science using Jupyter notebooks |
 | H2O-3 | 3.34 | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
 | Nvidia RAPIDS | 21.08 | GPU acceleration for common ML algorithms |
@@ -72,6 +72,7 @@ Some generic categories of software not included:
 | Deep Learning | Caffe, Caffe2, Theano, Keras, PaddlePaddle, Chainer, Torch, MXNet | PyTorch and TensorFlow are dominant, rest niche |
 | Deployment | Dash, TFServing, R Shiny, Flask | Use Gradient Deployments |
 | Distributed | Horovod, OpenMPI | Use Gradient distributed |
+| Distributions | Anaconda | Includes over 250 packages with many licenses |
 | Feature store | Feast | |
 | IDEs | PyCharm, Spyder, RStudio | |
 | Image proc | OpenCV, Pillow, scikit-image | |

@@ -56,15 +56,15 @@ This is my best (reasonably quick) effort at listing the licenses of the softwar
 | ------------- | -------------          | ------------- |
 | Atom          | MIT                    | https://github.com/atom/atom/blob/master/LICENSE.md |
 | Chrome	       | "Proprietary freeware" | https://www.google.com/intl/en/chrome/terms/ |
-| CUDA 	        | ?		  	                 | https://docs.nvidia.com/cuda/eula/index.html |
-| cuDNN         | ?			                   | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
+| CUDA 	        | NVidia EULA		  	       | https://docs.nvidia.com/cuda/eula/index.html |
+| cuDNN         | NVidia EULA            | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
 | Docker Engine | Apache 2.0?	           | https://www.docker.com/legal/docker-software-end-user-license-agreement |
 | H2O-3     	   | Apache 2.0?	           | https://www.h2o.ai/license/ |
 | JupyterLab    | New BSD      	         | https://github.com/jupyterlab/jupyterlab/blob/master/LICENSE |
 | Matplotlib    | PSF-based      		      | https://matplotlib.org/stable/users/license.html |
 | Numpy      	  | New BSD                | https://numpy.org/doc/stable/license.html |
 | NVidia Docker | Apache 2.0             | https://github.com/NVIDIA/nvidia-docker/blob/master/LICENSE |
-| NVidia Driver | ?                      | https://www.nvidia.com/en-us/drivers/nvidia-license/ |
+| NVidia Driver | NVidia EULA            | https://www.nvidia.com/en-us/drivers/nvidia-license/ |
 | NVidia RAPIDS | "Open source"          | https://developer.nvidia.com/rapids |
 | Pandas        | New BSD                | https://github.com/pandas-dev/pandas/blob/master/LICENSE |
 | Pip3          | MIT                    | https://github.com/pypa/pip/blob/main/LICENSE.txt |

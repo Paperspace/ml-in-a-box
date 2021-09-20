@@ -58,7 +58,7 @@ This is my best (reasonably quick) effort at listing the licenses of the softwar
 | Chrome	       | "Proprietary freeware" | https://www.google.com/intl/en/chrome/terms/ |
 | CUDA 	        | NVidia EULA		  	       | https://docs.nvidia.com/cuda/eula/index.html |
 | cuDNN         | NVidia EULA            | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
-| Docker Engine | Apache 2.0?	           | https://www.docker.com/legal/docker-software-end-user-license-agreement |
+| Docker Engine | Apache 2.0 	           | https://github.com/moby/moby/blob/master/LICENSE |
 | H2O-3     	   | Apache 2.0 	           | https://github.com/h2oai/h2o-3/blob/master/LICENSE |
 | JupyterLab    | New BSD      	         | https://github.com/jupyterlab/jupyterlab/blob/master/LICENSE |
 | Matplotlib    | PSF-based      		      | https://matplotlib.org/stable/users/license.html |

@@ -78,7 +78,7 @@ Information about license types:
 Apache 2.0: https://opensource.org/licenses/Apache-2.0  
 MIT: https://opensource.org/licenses/MIT  
 New BSD: https://opensource.org/licenses/BSD-3-Clause  
-PSF = Python Software Foundation
+PSF = Python Software Foundation: https://en.wikipedia.org/wiki/Python_Software_Foundation_License
 
 Open source software can be used for commercial purposes: https://opensource.org/docs/osd#fields-of-endeavor .
 

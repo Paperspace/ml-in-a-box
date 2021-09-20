@@ -5,17 +5,23 @@
 # Script requires sudo access
 # Installs go to standard locations, not ~/src as in previous 18.04 ML-in-a-Box template from 2018
 # Script assumes a fresh copy of the VM, with the software to be installed not already present
+# Uses a mix of install methods: Debian repo, apt-get, pip, depending on software
 # Some pip installs have alternative apt-get installs, but pip versions for Python/ML tend to be newer
+# See under the individual software installs below for other detail comments
 #
-# Last updated: Sep 18th 2021
+# See also
+#
+# Paperspace-internal GitHub repo for this ML-in-a-Box setup: https://github.com/Paperspace/ml-in-a-box
+#
+# Last updated: Sep 20th 2021
 
 ### TODO ###
 
-# Run from TensorFlow to end because failed with no space left on device
-# Some of the installs are not specifying a software version, and may pick up the latest instead of a fixed one
-# Rerun on fresh copy of the VM as sanity check, as the root user
-# Engineering to QA the GPU/CUDA/NVidia setup
-# GUI apps not tested: Chrome, JupyterLab, Atom
+# Not yet run from TensorFlow 2.5.0 below to end because no space left on device: needs new VM copy with more space
+# Some of the installs are not specifying a software version, and may pick up the latest instead of a fixed one: can all be fixed? Esp. the Debian repos
+# Rerun on fresh copy of the VM as sanity check, as the root user (some commands run are now commented, with an improved command to run uncommented)
+# Engineering to QA the GPU/CUDA/NVidia setup, especially w.r.t. our A100 GPUs
+# GUI apps not tested on VM running with GUI visible: Chrome, JupyterLab, Atom
 # CUDA toolkit install is not verified
 # Check software licenses before distributing
 
@@ -50,12 +56,14 @@ sudo apt-get update
 sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4 -y
 sudo apt-get install libcudnn8-dev=8.2.4.*-1+cuda11.4 -y
 
-# CUDA toolkit (gives /usr/bin/nvcc)
+# CUDA toolkit
+
+# Gives /usr/bin/nvcc, relevant to cuDNN
 
 #sudo apt install nvidia-cuda-toolkit
 sudo apt-get install nvidia-cuda-toolkit -y
 
-# Verify the install
+# Verify the cuDNN install
 
 ### TODO: Install is not verified ###
 
@@ -69,6 +77,8 @@ sudo apt-get install nvidia-cuda-toolkit -y
 # Infra
 # -----
 
+# Docker and NVidia-Docker so users can run their own containers, including with GPUs
+
 # - Docker Engine -
 
 # https://docs.docker.com/engine/install/ubuntu/
@@ -79,7 +89,7 @@ sudo apt-get install nvidia-cuda-toolkit -y
 # Commands for repo
 sudo apt-get update
 #sudo apt-get install apt-transport-https ca-certificates gnupg lsb-release -y
-sudo apt-get install apt-transport-https -y
+sudo apt-get install apt-transport-https=2.0.6 -y
 
 # Docker GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -123,6 +133,9 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 # Python
 # ------
 
+# Basic Python setup for Jupter-Notebook-based data science
+# User can add their own software for their particular specialty
+
 # - Python 3.8.10 -
 
 # This is now installed from one of the above steps: run with "python3", not "python"
@@ -154,6 +167,7 @@ pip3 install matplotlib==3.4.3
 
 # https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html
 # Invoke with jupyter lab (not jupyterlab), appears on browser localhost:8888, or others
+# JupyterLab includes Jupyter notebook
 
 #pip3 install jupyterlab
 pip3 install jupyterlab==3.1.12
@@ -161,6 +175,9 @@ pip3 install jupyterlab==3.1.12
 
 # ML
 # --
+
+# TensorFlow and PyTorch for deep learning
+# H2O for other ML algorithms
 
 # - H2O-3 3.34.0.1 -
 
@@ -247,6 +264,8 @@ python3 -c "import tensorflow as tf; tf.config.list_physical_devices('GPU')" # G
 # Etc.
 # ----
 
+# IDE and browser enables easier development, e.g., Python, JupyterLab
+
 # - Atom 1.58 -
 
 ### TODO ###
@@ -265,7 +284,7 @@ sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ 
 sudo apt-get update
 
 # Install
-sudo apt-get install atom
+sudo apt-get install atom=1.58
 
 
 # - Chrome 93.0 -

@@ -1,6 +1,6 @@
 # ML in a Box
 
-**TODO**: Not all software is on the VM yet - see the .sh script
+**TODO**: Not all software is on the VM yet - see the `ml_in_a_box.sh` script
 
 Last updated: Sep 20th 2021
 
@@ -24,29 +24,63 @@ Currently we plan to install the following data science software. The list is in
 
 Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 and Axxx GPUs to work, Nvidia being our primary provider of GPUs on the Paperspace cloud at present.
 
-**TODO**: Licenses, exact version numbers when installed
+| Category         | Software         | Version                | Install Method | Why / Notes |
+| -------------    | -------------    | -------------          | -------------  | ------------- |
+| GPU              | NVidia Driver    | 470.63.01              | Engg-supplied  | Enable Nvidia GPUs. Latest version as of VM creation date |
+|                  | CUDA             | 11.4                   | Engg-supplied  | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
+|                  | cuDNN            | 8.2.4.15-1+cuda11.4    | Ubuntu repo    | Nvidia GPU deep learning library. Also CUDA toolkit. |
+| Infra            | Docker Engine CE | 20.10.8, build 3967b7d | Ubuntu repo    | Docker Enginer community edition |
+|                  | NVidia Docker    | 2.6.0                  | Ubuntu repo    | Enable NVidia GPU in Docker containers |
+| Python           | Python           | 3.8.10                 | Done in above  | Most widely used programming language for data science. Version 3.8.10 is already installed by one of the above steps, and is compatible with other software and their versions installed here. |
+|                  | pip3             | 20.0.2                 | apt-get        | Enable easy installation of 1000s of other data science, etc., packages. Is a version 21.2 but apt-get install for Python 3.8 gives 20.0.2, which is OK. |
+|                  | NumPy            | 1.21.2                 | pip3           | Handle arrays, matrices, etc., in Python |
+|                  | Pandas           | 1.3.3                  | pip3           | De facto standard for data science data exploration/preparation in Python |
+|                  | Matplotlib       | 3.4.3                  | pip3           | Widely used plotting library in Python for data science, e.g., scikit-learn plotting requires it |
+|                  | JupyterLab       | 3.1.12                 | pip3           | De facto standard for data science using Jupyter notebooks |
+| Machine learning | H2O-3            | 3.34                   | pip3           | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
+|                  | Scikit-learn     | 0.24.2                 | pip3           | Widely used ML library for data science, generally for smaller data or models |
+| **TODO**         |                  |                        |                | |
+|                  | TensorFlow       | 2.5.0                  | pip3           | Most widely used deep learning library, alongside PyTorch |
+|                  | NVidia RAPIDS    | 21.08                  | conda          | GPU acceleration for common ML algorithms |
+|                  | PyTorch          | 1.9                    | source         | Most widely used deep learning library, alongside TensorFlow |
+| Etc.             | Atom             | 1.58                   | Ubuntu repo    | Text editor. Has built-in support for Git. |
+|                  | Chrome           | 93.0                   | Ubuntu repo    | Web browser, e.g., for JupyterLab |
 
-| Category | Software | Version | Install Method | Why / Notes |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| GPU | NVidia Driver | 470.63.01 | Engg-supplied | Enable Nvidia GPUs. Latest version as of VM creation date |
-| | CUDA | 11.4 | Engg-supplied | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
-| | cuDNN | 8.2.4.15-1+cuda11.4 | Ubuntu repo | Nvidia GPU deep learning library. Also CUDA toolkit. |
-| Infra | Docker Engine CE | 20.10.8, build 3967b7d | Ubuntu repo | Docker Enginer community edition |
-| | NVidia-Docker | 2.6.0 | Ubuntu repo | Enable NVidia GPU in Docker containers |
-| Python | Python | 3.8.10 | Done in above | Most widely used programming language for data science. Version 3.8.10 is already installed by one of the above steps, and is compatible with other software and their versions installed here. |
-| | pip3 | 20.0.2 | apt-get | Enable easy installation of 1000s of other data science, etc., packages. Is a version 21.2 but apt-get install for Python 3.8 gives 20.0.2, which is OK. |
-| | NumPy | 1.21.2 | pip3 | Handle arrays, matrices, etc., in Python |
-| | Pandas | 1.3.3 | pip3 | De facto standard for data science data exploration/preparation in Python |
-| | Matplotlib | 3.4.3 | pip3 | Widely used plotting library in Python for data science, e.g., scikit-learn plotting requires it |
-| | JupyterLab | 3.1.12 | pip3 | De facto standard for data science using Jupyter notebooks |
-| Machine learning | H2O-3 | 3.34 | pip3 | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
-| | Scikit-learn | 0.24.2 | pip3 | Widely used ML library for data science, generally for smaller data or models |
-| **TODO** | | |
-| | TensorFlow | 2.5.0 | pip3 | Most widely used deep learning library, alongside PyTorch |
-| | Nvidia RAPIDS | 21.08 | conda | GPU acceleration for common ML algorithms |
-| | PyTorch | 1.9 | source | Most widely used deep learning library, alongside TensorFlow |
-| Etc. | Atom | 1.58 | Ubuntu repo | Text editor. Has built-in support for Git. |
-| | Chrome | 93.0 | Ubuntu repo | Web browser, e.g., for JupyterLab |
+### Licenses
+
+This is my best (reasonably quick) effort at listing the licenses of the software included above.
+
+**They all appear OK, but as a non-lawyer I'm not qualified to guarantee it.**
+
+| Software      | License                | Source |
+| ------------- | -------------          | ------------- |
+| Atom          | MIT                    | https://github.com/atom/atom/blob/master/LICENSE.md |
+| Chrome	       | "Proprietary freeware" | https://www.google.com/intl/en/chrome/terms/ |
+| CUDA 	        | ?		  	                 | https://docs.nvidia.com/cuda/eula/index.html |
+| cuDNN         | ?			                   | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
+| Docker Engine | Apache 2.0?	           | https://www.docker.com/legal/docker-software-end-user-license-agreement |
+| H2O-3     	   | Apache 2.0?	           | https://www.h2o.ai/license/ |
+| JupyterLab    | New BSD      	         | https://github.com/jupyterlab/jupyterlab/blob/master/LICENSE |
+| Matplotlib    | PSF-based      		      | https://matplotlib.org/stable/users/license.html |
+| Numpy      	  | New BSD                | https://numpy.org/doc/stable/license.html |
+| NVidia Docker | Apache 2.0             | https://github.com/NVIDIA/nvidia-docker/blob/master/LICENSE |
+| NVidia Driver | ?                      | https://www.nvidia.com/en-us/drivers/nvidia-license/ |
+| NVidia RAPIDS | "Open source"          | https://developer.nvidia.com/rapids |
+| Pandas        | New BSD                | https://github.com/pandas-dev/pandas/blob/master/LICENSE |
+| Pip3          | MIT                    | https://github.com/pypa/pip/blob/main/LICENSE.txt |
+| PyTorch       | New BSD                | https://github.com/pytorch/pytorch/blob/master/LICENSE |
+| Python        | PSF                    | https://en.wikipedia.org/wiki/Python_(programming_language) |
+| Scikit-learn  | New BSD                | https://github.com/scikit-learn/scikit-learn/blob/main/COPYING |
+| TensorFlow    | Apache 2.0             | https://github.com/tensorflow/tensorflow/blob/master/LICENSE |
+
+Information about license types:
+
+Apache 2.0: https://opensource.org/licenses/Apache-2.0  
+MIT: https://opensource.org/licenses/MIT  
+New BSD: https://opensource.org/licenses/BSD-3-Clause  
+PSF = Python Software Foundation
+
+Open source software can be used for commercial purposes: https://opensource.org/docs/osd#fields-of-endeavor .
 
 ## Software not included
 
@@ -61,38 +95,40 @@ Some generic categories of software not included:
  - Software not licensed to be used on an available VM template
  - Software only used in particular specialized data science subfields (although we assume our users probably want a GPU)
 
-| Category | Software | Why Not |
-| ------------- | ------------- | ------------- |
-| Apache | Kafka, Parquet | |
-| Classifiers | libsvm, XGBoost | H2O contains SVM and GBM, save on installs |
-| Collections | ELKI, GNU Octave, Weka, Mahout | |
-| Connectors | S3, Academic Torrents, Google Drive | |
-| Dashboarding | panel, dash, voila, streamlit | |
-| Databases | MySQL, Hive, PostgreSQL, Prometheus, Neo4j, MongoDB, Cassandra, Redis | No particular infra to connect to databases |
-| Deep Learning | Caffe, Caffe2, Theano, Keras, PaddlePaddle, Chainer, Torch, MXNet | PyTorch and TensorFlow are dominant, rest niche |
-| Deployment | Dash, TFServing, R Shiny, Flask | Use Gradient Deployments |
-| Distributed | Horovod, OpenMPI | Use Gradient distributed |
-| Distributions | Anaconda | Includes over 250 packages with many licenses |
-| Feature store | Feast | |
-| IDEs | PyCharm, Spyder, RStudio | |
-| Image proc | OpenCV, Pillow, scikit-image | |
-| Interpretability | LIME/SHAP, Fairlearn, AI Fairness 360, InterpretML | |
-| Languages | R, SQL, Java, Julia, C++, JavaScript, Python2, Scala | Python is dominant for data science |
-| Monitoring | Grafana | |
-| NLP | HuggingFace, NLTK, GenSim, spaCy | |
-| Notebooks | Jupyter, Zeppelin | JupyterLab includes Jupyter notebook |
-| Orchestrators | Kubernetes | Use Gradient cluster|
-| Partners | fast.ai | Could add if we want partner functionality |
-| Pipelines | AirFlow, MLFlow, Intake, Kubeflow | |
-| Python libraries | SciPy, statsmodels, pymc3, geopandas, Geopy, LIBSVM | Too many to attempt to cover |
+| Category           | Software | Why Not |
+| -------------      | ------------- | ------------- |
+| Apache             | Kafka, Parquet | |
+| Classifiers        | libsvm, XGBoost | H2O contains SVM and GBM, save on installs |
+| Collections        | ELKI, GNU Octave, Weka, Mahout | |
+| Connectors         | S3, Academic Torrents, Google Drive | |
+| Dashboarding       | panel, dash, voila, streamlit | |
+| Databases          | MySQL, Hive, PostgreSQL, Prometheus, Neo4j, MongoDB, Cassandra, Redis | No particular infra to connect to databases |
+| Deep Learning      | Caffe, Caffe2, Theano, Keras, PaddlePaddle, Chainer, Torch, MXNet | PyTorch and TensorFlow are dominant, rest niche |
+| Deployment         | Dash, TFServing, R Shiny, Flask | Use Gradient Deployments |
+| Distributed.       | Horovod, OpenMPI | Use Gradient distributed |
+| Distributions      | Anaconda | Includes over 250 packages with many licenses |
+| Feature store      | Feast | |
+| IDEs               | PyCharm, Spyder, RStudio | |
+| Image proc         | OpenCV, Pillow, scikit-image | |
+| Interpretability   | LIME/SHAP, Fairlearn, AI Fairness 360, InterpretML | |
+| Languages          | R, SQL, Java, Julia, C++, JavaScript, Python2, Scala | Python is dominant for data science |
+| Monitoring         | Grafana | |
+| NLP                | HuggingFace, NLTK, GenSim, spaCy | |
+| Notebooks          | Jupyter, Zeppelin | JupyterLab includes Jupyter notebook |
+| Orchestrators      | Kubernetes | Use Gradient cluster|
+| Partners           | fast.ai | Could add if we want partner functionality |
+| Pipelines          | AirFlow, MLFlow, Intake, Kubeflow | |
+| Python libraries   | SciPy, statsmodels, pymc3, geopandas, Geopy, LIBSVM | Too many to attempt to cover |
 | PyTorch extensions | Lightning | |
-| R packages | ggplot, tidyverse | Could add R if customer demand |
-| Recommenders | TFRS, scikit-surprise | |
-| Scalable | Dask, Numba, Spark 1 or 2, Koalas, Hadoop | |
-| TensorFlow | TF 1.15, Datasets, Recommenders, TensorBoard, TensorRT | Could add TensorFlow 1.x if customer demand. Requires separate tensorflow-gpu for GPU support. |
-| Viz | Bokeh, Plotly, Holoviz (Datashader), Seaborn, Google FACETS, Excalidraw, GraphViz, ggplot2, d3.js | |
+| R packages         | ggplot, tidyverse | Could add R if customer demand |
+| Recommenders       | TFRS, scikit-surprise | |
+| Scalable           | Dask, Numba, Spark 1 or 2, Koalas, Hadoop | |
+| TensorFlow         | TF 1.15, Datasets, Recommenders, TensorBoard, TensorRT | Could add TensorFlow 1.x if customer demand. Requires separate tensorflow-gpu for GPU support. |
+| Viz                | Bokeh, Plotly, Holoviz (Datashader), Seaborn, Google FACETS, Excalidraw, GraphViz, ggplot2, d3.js | |
 
 ## Script
+
+The script is at `ml_in_a_box.sh`.
 
 **TODO**: Add script info and how to run it on the VM to install the software and make the VM a template
 

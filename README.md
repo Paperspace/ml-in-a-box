@@ -45,7 +45,7 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 |                  | NVidia RAPIDS    | 21.08                  | conda          | GPU acceleration for common ML algorithms |
 |                  | PyTorch          | 1.9                    | source         | Most widely used deep learning library, alongside TensorFlow |
 | Etc.             | Atom             | 1.58.0                 | Ubuntu repo    | Text editor. Has built-in support for Git. |
-|                  | Chrome           | 93.0                   | Ubuntu repo    | Web browser, e.g., for JupyterLab |
+|                  | Chrome           | 94.0.4606.54-1         | Ubuntu repo    | Web browser, e.g., for JupyterLab |
 
 ### Licenses
 

@@ -228,12 +228,11 @@ python3 -c "import sklearn; sklearn.show_versions()"
 #    Uninstalling numpy-1.21.2:
 #      Successfully uninstalled numpy-1.21.2
 
-### TODO: TensorFlow can't see the GPU ###
+# May need to exit and reenter the shell for TF to see the GPU
 
 pip3 install tensorflow==2.5.0
 
 # Verify install
-
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 python3 -c "import tensorflow as tf; tf.config.list_physical_devices('GPU')" # GPUs (https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d)
 

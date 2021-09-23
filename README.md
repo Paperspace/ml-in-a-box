@@ -1,6 +1,6 @@
 # ML in a Box
 
-**TODO**: `ml_in_a_box.sh` script has some TODO items
+**TODO**: `ml_in_a_box.sh` script has some TODO items  
 **TODO**: Add script info below and how to run it on the VM to install the software
 
 Last updated: Sep 23rd 2021

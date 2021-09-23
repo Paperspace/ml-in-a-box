@@ -291,8 +291,6 @@ rm Miniconda3-py38_4.10.3-Linux-x86_64.sh
 
 # - Atom 1.58.0 -
 
-### TODO ###
-
 # https://linuxize.com/post/how-to-install-atom-text-editor-on-ubuntu-20-04/
 # sudo apt update
 # sudo apt install software-properties-common apt-transport-https wget
@@ -310,8 +308,6 @@ sudo apt-get update
 sudo apt-get install atom=1.58.0
 
 # - Chrome 93.0 -
-
-### TODO ###
 
 # Leave this un-versioned to get latest, which is preferable for security
 # Invoke with google-chrome

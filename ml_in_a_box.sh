@@ -18,11 +18,10 @@
 
 ### TODO ###
 
-# TensorFlow 2.5.0 can't see the GPU
-# Some of the installs are not specifying a software version, and may pick up the latest instead of a fixed one: can all be fixed? Esp. the Debian repos
-# Rerun on fresh copy of the VM as sanity check, as the root user (some commands run are now commented, with an improved command to run uncommented)
-# Engineering to QA the GPU/CUDA/NVidia setup, especially w.r.t. our A100 GPUs
+# Rerun on fresh copy of the VM as sanity check, as the root user (some commands run are now commented, with an improved command to run uncommented; use A100 GPU since it will be available
+# Engineering QA the GPU/CUDA/NVidia setup, especially w.r.t. A100 GPU
 # GUI apps not tested on VM running with GUI visible: Chrome, JupyterLab, Atom (Paperspace CORE streaming?)
+# Some of the installs are not specifying a software version, and may pick up the latest instead of a fixed one: can all be fixed? Esp. the Debian repos
 # CUDA toolkit install is not verified
 
 mkdir ~/src

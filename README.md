@@ -40,7 +40,6 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 |                  | JupyterLab       | 3.1.12                 | pip3           | De facto standard for data science using Jupyter notebooks |
 | Machine learning | H2O-3            | 3.34                   | pip3           | Enables in one place a wide range of ML algorithms outside deep learning at considerably higher performance than scikit-learn: gradient boosted trees, random forest, support vector machine, k-means clustering, generalized linear model (includes logistic regression), isolation forest, etc. Plus auto-ml, model ensembling, and other features. |
 |                  | Scikit-learn     | 0.24.2                 | pip3           | Widely used ML library for data science, generally for smaller data or models |
-| **TODO**         |                  |                        |                | |
 |                  | TensorFlow       | 2.5.0                  | pip3           | Most widely used deep learning library, alongside PyTorch |
 |                  | NVidia RAPIDS    | 21.08                  | conda          | GPU acceleration for common ML algorithms |
 |                  | PyTorch          | 1.9                    | source         | Most widely used deep learning library, alongside TensorFlow |

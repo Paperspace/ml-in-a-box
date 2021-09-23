@@ -1,8 +1,9 @@
 # ML in a Box
 
-**TODO**: Not all software is on the VM yet - see the `ml_in_a_box.sh` script
+**TODO**: `ml_in_a_box.sh` script has some TODO items
+**TODO**: Add script info below and how to run it on the VM to install the software
 
-Last updated: Sep 20th 2021
+Last updated: Sep 23rd 2021
 
 This is to update the Paperspace Core "ML-in-a-Box" template VM image from Ubuntu 18.04 to 20.04.
 
@@ -43,7 +44,7 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 |                  | TensorFlow       | 2.5.0                  | pip3           | Most widely used deep learning library, alongside PyTorch |
 |                  | NVidia RAPIDS    | 21.08                  | conda          | GPU acceleration for common ML algorithms |
 |                  | PyTorch          | 1.9                    | source         | Most widely used deep learning library, alongside TensorFlow |
-| Etc.             | Atom             | 1.58                   | Ubuntu repo    | Text editor. Has built-in support for Git. |
+| Etc.             | Atom             | 1.58.0                 | Ubuntu repo    | Text editor. Has built-in support for Git. |
 |                  | Chrome           | 93.0                   | Ubuntu repo    | Web browser, e.g., for JupyterLab |
 
 ### Licenses
@@ -129,8 +130,6 @@ Some generic categories of software not included:
 ## Script
 
 The script is at `ml_in_a_box.sh`.
-
-**TODO**: Add script info and how to run it on the VM to install the software and make the VM a template
 
 ## References
 

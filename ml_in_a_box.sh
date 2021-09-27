@@ -14,15 +14,26 @@
 #
 # Paperspace-internal GitHub repo for this ML-in-a-Box setup: https://github.com/Paperspace/ml-in-a-box
 #
-# Last updated: Sep 23rd 2021
+# Last updated: Sep 27th 2021
 
 ### TODO ###
 
-# Rerun on fresh copy of the VM as sanity check, as the root user (some commands run are now commented, with an improved command to run uncommented; use A100 GPU since it will be available
-# Engineering QA the GPU/CUDA/NVidia setup, especially w.r.t. A100 GPU
+# These should be done before the VM is released
+
+# Rerun on fresh copy of the VM as sanity check, as the root user (some commands run are now commented, with an improved command to run uncommented; use A100 GPU since it will be available)
+# Engineering QA the GPU/CUDA/NVidia setup, especially w.r.t. A100 GPU, versioning (is everything fixed version?), and security (we're using installed repos with arbitrary code; CUDA toolkit install is not verified)
 # GUI apps not tested on VM running with GUI visible: Chrome, JupyterLab, Atom (Paperspace CORE streaming?)
-# Some of the installs are not specifying a software version, and may pick up the latest instead of a fixed one: can all be fixed? Esp. the Debian repos
-# CUDA toolkit install is not verified
+
+# Improvements
+
+# These improve the script but are not vital
+
+# Add PyTorch 1.9/1.10 when CUDA 11.4 is supported
+# Chrome install is not versioned so script outcome is not necessarily the same on a rerun. Potentially install a fixed version, then user does Chrome update, but depends if they can still run an old one w/o seeing prompt to update.
+# CUDA toolkit install is not verified. Later steps use it but there is a verify install using manual steps.
+# Put NumPy back to 1.21.2 after TensorFlow 2.5.0 downgrades it: pip install numpy 1.21.2 again, and then check TensorFlow still works
+
+# Working directory for script
 
 mkdir ~/src
 cd ~/src
@@ -51,7 +62,7 @@ sudo apt-get update
 
 #sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4        ### Was run with this; next time through use below
 #sudo apt-get install libcudnn8-dev=8.2.4.*-1+cuda11.4
-sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4 -y
+sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4 -y       ### --dry-run first
 sudo apt-get install libcudnn8-dev=8.2.4.*-1+cuda11.4 -y
 
 # CUDA toolkit
@@ -59,11 +70,9 @@ sudo apt-get install libcudnn8-dev=8.2.4.*-1+cuda11.4 -y
 # Gives /usr/bin/nvcc, relevant to cuDNN
 
 #sudo apt install nvidia-cuda-toolkit ### Was run with this; next time through use below
-sudo apt-get install nvidia-cuda-toolkit -y
+sudo apt-get install nvidia-cuda-toolkit -y ### Add specific version (use --dry-run)
 
-# Verify the cuDNN install
-
-### TODO: Install is not verified ###
+# cuDNN install is not verified
 
 # https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#verify says use /usr/src/cudnn_samples_v8/mnistCUDNN
 # but the directory only contains NVIDIA_SLA_cuDNN_Support.txt, the license agreement
@@ -120,7 +129,7 @@ curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/$distr
 
 # Install
 sudo apt-get update
-sudo apt-get install nvidia-docker2 -y
+sudo apt-get install nvidia-docker2 -y ### Add specific version (use --dry-run)
 sudo systemctl restart docker
 
 # Verify install
@@ -144,7 +153,7 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 # pip can have newer versions of packages than Ubuntu's apt
 
 sudo apt-get update
-sudo apt-get install python3-pip -y
+sudo apt-get install python3-pip -y ### Add specific version (use --dry-run)
 
 # - Numpy 1.21.2 -
 
@@ -259,7 +268,7 @@ export PATH=$PATH:$HOME/src/miniconda/bin
 conda create -y -n rapids-21.08 -c rapidsai -c nvidia -c conda-forge rapids-blazing=21.08 python=3.8 cudatoolkit=11.4 # NVidia site says cudatoolkit 11.2 but runs with 11.4
 rm Miniconda3-py38_4.10.3-Linux-x86_64.sh
 
-# Can briefly verify with
+# Can briefly verify with the following (requires interactive steps)
 
 #conda init bash # Exit shell and reenter
 #conda activate rapids-21.08

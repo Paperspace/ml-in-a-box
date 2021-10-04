@@ -14,15 +14,21 @@
 #
 # Paperspace-internal GitHub repo for this ML-in-a-Box setup: https://github.com/Paperspace/ml-in-a-box
 #
-# Last updated: Sep 27th 2021
+# Last updated: Oct 04th 2021
 
 ### TODO ###
 
 # These should be done before the VM is released
 
-# Rerun on fresh copy of the VM as sanity check, as the root user (some commands run are now commented, with an improved command to run uncommented; use A100 GPU since it will be available)
-# Engineering QA the GPU/CUDA/NVidia setup, especially w.r.t. A100 GPU, versioning (is everything fixed version?), and security (we're using installed repos with arbitrary code; CUDA toolkit install is not verified)
 # GUI apps not tested on VM running with GUI visible: Chrome, JupyterLab, Atom (Paperspace CORE streaming?)
+
+# Engineering QA the GPU/CUDA/NVidia setup, especially w.r.t.
+#  - A100 GPU & CUDA so "it just works"
+#  - Versioning (most things here are fixed version, some are not; ones not have no obvious way to specify a version)
+#  - Security (we're using installed repos with arbitrary code)
+#  - Run script in one go as the superuser? (commands require sudo; VM doesn't let me be SU)
+#  - Licensing OK (looks good to me but I am not a lawyer)
+#  - Test out final VM when built
 
 # Improvements
 
@@ -32,6 +38,8 @@
 # Chrome install is not versioned so script outcome is not necessarily the same on a rerun. Potentially install a fixed version, then user does Chrome update, but depends if they can still run an old one w/o seeing prompt to update.
 # CUDA toolkit install is not verified. Later steps use it but there is a verify install using manual steps.
 # Put NumPy back to 1.21.2 after TensorFlow 2.5.0 downgrades it: pip install numpy 1.21.2 again, and then check TensorFlow still works
+# Unclear what the lib errors are when TF is asked to show the GPU devices after install
+# NVidia RAPIDS requires own virtualenv (conda, package installs, etc.), which is not ideal when nothing else installed needs it
 
 # Working directory for script
 
@@ -60,17 +68,13 @@ sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 sudo apt-get update
 
-#sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4        ### Was run with this; next time through use below
-#sudo apt-get install libcudnn8-dev=8.2.4.*-1+cuda11.4
-sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4 -y       ### --dry-run first
+sudo apt-get install libcudnn8=8.2.4.*-1+cuda11.4 -y
 sudo apt-get install libcudnn8-dev=8.2.4.*-1+cuda11.4 -y
 
 # CUDA toolkit
 
 # Gives /usr/bin/nvcc, relevant to cuDNN
-
-#sudo apt install nvidia-cuda-toolkit ### Was run with this; next time through use below
-sudo apt-get install nvidia-cuda-toolkit -y ### Add specific version (use --dry-run)
+sudo apt-get install nvidia-cuda-toolkit=10.1.243-3 -y # Version was derived from --dry-run
 
 # cuDNN install is not verified
 
@@ -95,8 +99,7 @@ sudo apt-get install nvidia-cuda-toolkit -y ### Add specific version (use --dry-
 
 # Commands for repo
 sudo apt-get update
-#sudo apt-get install apt-transport-https ca-certificates gnupg lsb-release -y ### Was run with this; next time through use below
-sudo apt-get install apt-transport-https=2.0.6 -y
+sudo apt-get install apt-transport-https=2.0.6 ca-certificates=20210119~20.04.2 -y # gnupg and lsb-release also needed, but already at latest versions
 
 # Docker GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -106,7 +109,6 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] 
 
 # Install Docker Engine
 sudo apt-get update
-#sudo apt-get install docker-ce docker-ce-cli containerd.io ### Was run with this; next time through use below
 sudo apt-get install docker-ce=5:20.10.8~3-0~ubuntu-focal docker-ce-cli=5:20.10.8~3-0~ubuntu-focal containerd.io -y
 
 # Verify the install
@@ -124,16 +126,15 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
    && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
 # Add experimental for A100 GPU features
-#curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/ubuntu20.04/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list ### Was run with this; next time through use below
 curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/$distribution/nvidia-container-runtime.list | sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
 
 # Install
 sudo apt-get update
-sudo apt-get install nvidia-docker2 -y ### Add specific version (use --dry-run)
+sudo apt-get install nvidia-docker2=2.6.0-1 -y
 sudo systemctl restart docker
 
 # Verify install
-# Can see version with nvidia-docker version, which is better than nvidia-docker --version
+# Can see version with sudo nvidia-docker version, which shows more information than sudo nvidia-docker --version
 sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 
@@ -150,34 +151,34 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 # - pip3 20.0.2 -
 
 # Works as "pip" or "pip3"
-# pip can have newer versions of packages than Ubuntu's apt
+# pip often has newer versions of ML packages than Ubuntu's apt
 
 sudo apt-get update
-sudo apt-get install python3-pip -y ### Add specific version (use --dry-run)
+sudo apt-get install python3-pip=20.0.2-5ubuntu1.6 -y
 
 # - Numpy 1.21.2 -
 
-#pip3 install numpy ### Was run with this; next time through use below
 pip3 install numpy==1.21.2
 
 # - Pandas 1.3.3 -
 
-#pip3 install pandas ### Was run with this; next time through use below
 pip3 install pandas==1.3.3
 
 # - Matplotlib 3.4.3 -
 
-#pip3 install matplotlib ### Was run with this; next time through use below
 pip3 install matplotlib==3.4.3
 
 # - JupyterLab 3.1.12 -
 
 # https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html
-# Invoke with jupyter lab (not jupyterlab), appears on browser localhost:8888, or others
 # JupyterLab includes Jupyter notebook
 
-#pip3 install jupyterlab ### Was run with this; next time through use below
 pip3 install jupyterlab==3.1.12
+
+# Add /home/paperspace/.local/bin to path (numpy and jupyterlab warn on this)
+export PATH=${PATH}:/home/paperspace/.local/bin
+
+# Invoke with jupyter lab (not jupyterlab); appears on browser localhost:8888, or others
 
 
 # ML
@@ -195,14 +196,11 @@ pip3 install jupyterlab==3.1.12
 # Says pip install requests, tabulate, future; requests is present
 # Java is already installed from earlier in this script
 
-#pip3 install tabulate ### Was run with this; next time through use below
 pip3 install tabulate==0.8.9
-#pip3 install future ### Was run with this; next time through use below
 pip3 install future==0.18.2
 
 # Install
 
-#pip3 install -f http://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html h2o ### Was run with this; next time through use below
 pip3 install -f https://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html h2o==3.34.0.1
 
 # Verify install
@@ -216,7 +214,6 @@ pip3 install -f https://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html h
 # https://scikit-learn.org/stable/install.html
 # This also installs SciPy 1.7.1
 
-#pip3 install scikit-learn ### Was run with this; next time through use below
 pip3 install scikit-learn==0.24.2
 
 # Verify install
@@ -237,7 +234,7 @@ python3 -c "import sklearn; sklearn.show_versions()"
 #    Uninstalling numpy-1.21.2:
 #      Successfully uninstalled numpy-1.21.2
 
-# May need to exit and reenter the shell for TF to see the GPU
+# May work better to exit and reenter the shell for TF to see the GPU, but it is found under devices
 
 pip3 install tensorflow==2.5.0
 
@@ -258,21 +255,19 @@ python3 -c "import tensorflow as tf; tf.config.list_physical_devices('GPU')" # G
 # https://conda.io/projects/conda/en/latest/user-guide/install/linux.html
 # https://conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent (MacOS or Linux)
 
-#wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh # Latest is Python 3.9, so get 3.8
-#sudo bash Miniconda3-py38_4.10.3-Linux-x86_64.sh -b # -b flag is silent mode install
-#export PATH=$PATH:/root/miniconda3/bin
-
 wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh # Latest is Python 3.9, so get 3.8
 bash Miniconda3-py38_4.10.3-Linux-x86_64.sh -b -p $HOME/src/miniconda # -b flag is silent mode install, -p is install prefix. sudo /root/miniconda3/bin/conda init below doesn't work without -p; with -p doesn't need sudo.
-export PATH=$PATH:$HOME/src/miniconda/bin
+export PATH=${PATH}:$HOME/src/miniconda/bin
 conda create -y -n rapids-21.08 -c rapidsai -c nvidia -c conda-forge rapids-blazing=21.08 python=3.8 cudatoolkit=11.4 # NVidia site says cudatoolkit 11.2 but runs with 11.4
 rm Miniconda3-py38_4.10.3-Linux-x86_64.sh
 
 # Can briefly verify with the following (requires interactive steps)
 
-#conda init bash # Exit shell and reenter
-#conda activate rapids-21.08
-#python3 -c "import cudf, cuml; print(cudf.__version__); print(cuml.__version__)"
+# conda init bash
+# (Then exit shell and reenter)
+# conda activate rapids-21.08
+# python3 -c "import cudf, cuml; print(cudf.__version__); print(cuml.__version__)"
+# conda deactivate
 
 
 # - PyTorch 1.9.0 -
@@ -322,4 +317,5 @@ sudo apt-get install atom=1.58.0
 # https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
+sudo apt-get update
 rm google-chrome-stable_current_amd64.deb

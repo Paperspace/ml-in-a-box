@@ -20,8 +20,6 @@
 
 # These should be done before the VM is released
 
-# GUI apps not tested on VM running with GUI visible: Chrome, JupyterLab, Atom (Paperspace CORE streaming?)
-
 # Engineering QA the GPU/CUDA/NVidia setup, especially w.r.t.
 #  - A100 GPU & CUDA so "it just works"
 #  - Versioning (most things here are fixed version, some are not; ones not have no obvious way to specify a version)
@@ -35,7 +33,6 @@
 # These improve the script but are not vital
 
 # Add PyTorch 1.9/1.10 when CUDA 11.4 is supported
-# Chrome install is not versioned so script outcome is not necessarily the same on a rerun. Potentially install a fixed version, then user does Chrome update, but depends if they can still run an old one w/o seeing prompt to update.
 # CUDA toolkit install is not verified. Later steps use it but there is a verify install using manual steps.
 # Put NumPy back to 1.21.2 after TensorFlow 2.5.0 downgrades it: pip install numpy 1.21.2 again, and then check TensorFlow still works
 # Unclear what the lib errors are when TF is asked to show the GPU devices after install
@@ -284,38 +281,3 @@ rm Miniconda3-py38_4.10.3-Linux-x86_64.sh
 
 # https://anaconda.org/pytorch/repo
 # But magma-cuda only goes to magma-cuda113, which is CUDA 11.3 
-
-
-# Etc.
-# ----
-
-# IDE and browser enables easier development, e.g., Python, JupyterLab
-
-# - Atom 1.58.0 -
-
-# https://linuxize.com/post/how-to-install-atom-text-editor-on-ubuntu-20-04/
-# sudo apt update
-# sudo apt install software-properties-common apt-transport-https wget
-# wget -q https://packagecloud.io/AtomEditor/atom/gpgkey -O- | sudo apt-key add -
-# sudo add-apt-repository "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
-
-# https://flight-manual.atom.io/getting-started/sections/installing-atom/#platform-linux
-
-# Add package repo and GPG key
-wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-sudo apt-get update
-
-# Install
-sudo apt-get install atom=1.58.0
-
-# - Chrome 93.0 -
-
-# Leave this un-versioned to get latest, which is preferable for security
-# Invoke with google-chrome
-
-# https://linuxize.com/post/how-to-install-google-chrome-web-browser-on-ubuntu-20-04/
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-sudo apt-get update
-rm google-chrome-stable_current_amd64.deb

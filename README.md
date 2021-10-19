@@ -44,8 +44,6 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 |                  | TensorFlow       | 2.5.0                  | pip3           | Most widely used deep learning library, alongside PyTorch. Note 2.5.0 as 2.6 unclear if works with CUDA 11.4, NVidia, etc. |
 |                  | NVidia RAPIDS    | 21.08                  | conda          | GPU acceleration for common ML algorithms |
 |                  | (PyTorch)        | (1.9.0)                | source         | **Not installed because doesn't support CUDA 11.4 yet.** Most widely used deep learning library, alongside TensorFlow |
-| Etc.             | Atom             | 1.58.0                 | Ubuntu repo    | Text editor. Has built-in support for Git. |
-|                  | Chrome           | Latest                 | Ubuntu repo    | Web browser, e.g., for JupyterLab. Was 94.0.4606.54-1 when run. |
 
 ### Licenses
 
@@ -55,8 +53,6 @@ This is my best (reasonably quick) effort at listing the licenses of the softwar
 
 | Software      | License                | Source |
 | ------------- | -------------          | ------------- |
-| Atom          | MIT                    | https://github.com/atom/atom/blob/master/LICENSE.md |
-| Chrome	       | "Proprietary freeware" | https://www.google.com/intl/en/chrome/terms/ |
 | CUDA 	        | NVidia EULA		  	       | https://docs.nvidia.com/cuda/eula/index.html |
 | cuDNN         | NVidia EULA            | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
 | Docker Engine | Apache 2.0 	           | https://github.com/moby/moby/blob/master/LICENSE |

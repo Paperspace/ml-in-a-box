@@ -1,34 +1,17 @@
 # ML in a Box
 
-**TODO**: `ml_in_a_box.sh` script has some TODO items  
-**TODO**: Add script info below and how to run it on the VM to install the software
-
-Last updated: Oct 04th 2021
-
-This is to update the Paperspace Core "ML-in-a-Box" template VM image from Ubuntu 18.04 to 20.04.
-
-By recording the software choice and scripts used to set up the new template, this should make it easier to update in future, and keep the VM up to date with an appropriate base of ML software for users. (The previous 18.04 template has no record of what was run to create it.)
-
-This also makes us flexible and open to customer feedback, as the script can be straightforwardly altered to add new tools, or remove existing ones, and rerun.
+This repo houses a script used to turn any Paperspace Ubuntu 20.04 based Linux instance into a fully functional machine learning environment for interactive development. Users are free to modify and run against their own Paperspace instance, be it Linux headless or Linux desktop. The only requirement is a working Nvidia GPU driver pre-installed. A pre-built template exists in the Paperspace eco-system as a Public Template based on a base Ubuntu 20.04 image.
 
 ## Who is this for?
 
 We assume a generic advanced data science user who probably wants GPU access, but not any particular specialized subfield of data science such as computer vision or natural language processing. Such users can build upon this base to create their own stack, or we can create other VMs for subfields, similar to what can be done with Gradient containers.
 
-We assume they have access to machines outside of this VM, so non-data-science software used everyday by many people is not included.
-
-Some particular software choices are also influenced by assumed details about a user, and are mentioned in the two tables below.
-
 ## Software included
-
-Currently we plan to install the following data science software. The list is in alphabetical order.
-
-Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 and Axxx GPUs to work, Nvidia being our primary provider of GPUs on the Paperspace cloud at present.
 
 | Category         | Software         | Version                | Install Method | Why / Notes |
 | -------------    | -------------    | -------------          | -------------  | ------------- |
-| GPU              | NVidia Driver    | 470.63.01              | Engg-supplied  | Enable Nvidia GPUs. Latest version as of VM creation date |
-|                  | CUDA             | 11.4                   | Engg-supplied  | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
+| GPU              | NVidia Driver    | 470.63.01              | pre-installed  | Enable Nvidia GPUs. Latest version as of VM creation date |
+|                  | CUDA             | 11.4                   | pre-installed  | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
 |                  | cuDNN            | 8.2.4.15-1+cuda11.4    | Ubuntu repo    | Nvidia GPU deep learning library |
 |                  | CUDA toolkit     | 10.1.243-3             | apt-get        | Needed for `nvcc` command for cuDNN |
 | Infra            | Docker Engine CE | 20.10.8, build 3967b7d | Ubuntu repo    | Docker Enginer community edition |
@@ -46,10 +29,6 @@ Particular attention is paid to enabling the just-acquired Nvidia Ampere A100 an
 |                  | (PyTorch)        | (1.9.0)                | source         | **Not installed because doesn't support CUDA 11.4 yet.** Most widely used deep learning library, alongside TensorFlow |
 
 ### Licenses
-
-This is my best (reasonably quick) effort at listing the licenses of the software included above.
-
-**They all appear OK, but as a non-lawyer I'm not qualified to guarantee it.**
 
 | Software      | License                | Source |
 | ------------- | -------------          | ------------- |
@@ -122,18 +101,3 @@ Some generic categories of software not included:
 | Scalable           | Dask, Numba, Spark 1 or 2, Koalas, Hadoop | |
 | TensorFlow         | TF 1.15, Datasets, Recommenders, TensorBoard, TensorRT | Could add TensorFlow 1.x if customer demand. Requires separate tensorflow-gpu for GPU support. |
 | Viz                | Bokeh, Plotly, Holoviz (Datashader), Seaborn, Google FACETS, Excalidraw, GraphViz, ggplot2, d3.js | |
-
-## Script
-
-The script is at `ml_in_a_box.sh`.
-
-## References
-
-Some useful references in deriving the software stack were:
-
- - Our previous ML-in-a-Box's [list of contents](https://support.paperspace.com/hc/en-us/articles/115002305973)
- - Nvidia containers with working combinations of CUDA, cuDNN, etc., with other data science software, e.g., [here](https://docs.nvidia.com/deeplearning/cudnn/support-matrix/index.html), [here](https://docs.nvidia.com/deeplearning/frameworks/tensorflow-release-notes/rel_21-08.html#rel_21-08), or [here](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/rel_21-08.html#rel_21-08)
- - The Anaconda Python distribution's [overview](https://www.anaconda.com/open-source) (there is also a list of its data science packages)
- - Medium blog on a [data science stack](https://dev.to/minchulkim87/my-data-science-tech-stack-2020-1poa)
- - Various other online articles, forums, etc.
- - Nick's own notes & lists

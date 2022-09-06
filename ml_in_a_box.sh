@@ -1,104 +1,268 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y install \
-  gcc \
-  make \
-  pkg-config \
-  apt-transport-https \
-  ca-certificates
-
-# Blacklist nouveau and rebuild kernel initramfs
-echo "blacklist nouveau
-options nouveau modeset=0" >> blacklist-nouveau.conf
-sudo mv blacklist-nouveau.conf /etc/modprobe.d/blacklist-nouveau.conf
-sudo update-initramfs -u
-sudo reboot
-
-# Install NVIDIA Linux toolkit 510.54
-wget https://us.download.nvidia.com/XFree86/Linux-x86_64/510.54/NVIDIA-Linux-x86_64-510.54.run
-chmod +x NVIDIA-Linux-x86_64-510.54.run
-sudo bash ./NVIDIA-Linux-x86_64-510.54.run
-rm NVIDIA-Linux-x86_64-510.54.run
-
-# Install CUDA toolkit 11.3 Upgrade 1 for Ubuntu 20.04 LTS
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-wget https://developer.download.nvidia.com/compute/cuda/11.3.1/local_installers/cuda-repo-ubuntu2004-11-3-local_11.3.1-465.19.01-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu2004-11-3-local_11.3.1-465.19.01-1_amd64.deb
-sudo apt-key add /var/cuda-repo-ubuntu2004-11-3-local/7fa2af80.pub
-sudo apt-get update
-sudo apt-get -y install cuda
-
-# Install cuDNN 8.2.1 for CUDA 11.x
-# authed download, so just ended up rsyncing it up to the machine from my local
-# wget https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.1.32/11.3_06072021/Ubuntu20_04-x64/libcudnn8_8.2.1.32-1+cuda11.3_amd64.deb
-sudo dpkg -i libcudnn8_8.2.1.32-1+cuda11.3_amd64.deb
-sudo apt-get update
-sudo apt-get -y install libcudnn8
-rm libcudnn8_8.2.1.32-1+cuda11.3_amd64.deb
-
-# Install Docker Engine
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-  sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get -y install \
-  docker-ce \
-  docker-ce-cli \
-  containerd.io
-
-# Install NVIDIA Docker
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
-   && curl -s -L https://nvidia.github.io/nvidia-docker/${distribution}/nvidia-docker.list | \
-   sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-curl -s -L https://nvidia.github.io/nvidia-container-runtime/experimental/${distribution}/nvidia-container-runtime.list | \
-  sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-sudo apt-get update
-sudo apt-get -y install nvidia-docker2
-sudo systemctl restart docker
-
-# Install pip
-wget https://bootstrap.pypa.io/get-pip.py
-python3 ./get-pip.py
-
-# Install package dependencies
-python3 -m pip install \
-  numpy \
-  pandas \
-  matplotlib \
-  jupyterlab \
-  tabulate \
-  future \
-  scikit-learn
-
-# Install PyTorch
-python3 -m pip install \
-  torch==1.10.2+cu113 \
-  torchvision==0.11.3+cu113 \
-  torchaudio==0.10.2+cu113 \
-  -f https://download.pytorch.org/whl/cu113/torch_stable.html
-
-# Install TensorFlow
-python3 -m pip install tensorflow==2.5.0
-
-# Install H2O
-python3 -m pip install \
-  -f https://h2o-release.s3.amazonaws.com/h2o/latest_stable_Py.html \
-  h2o
-
-# Install NVIDIA Rapids
-wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh
-bash Miniconda3-py38_4.10.3-Linux-x86_64.sh -b -p $HOME/src/miniconda
-export PATH=${PATH}:$HOME/src/miniconda/bin
-conda create -y -n rapids-21.08 -c rapidsai -c nvidia -c conda-forge rapids-blazing=21.08 python=3.8 cudatoolkit=11.3
-rm Miniconda3-py38_4.10.3-Linux-x86_64.sh
+# ==================================================================
+# Module list
+# ------------------------------------------------------------------
+# python                3.9.12           (conda)
+# torch                 1.12.1           (pip)
+# torchvision           0.13.1           (pip)
+# torchaudio            0.12.1           (pip)
+# tensorflow            2.9.2            (pip)
+# jax                   [cuda11_cudnn82] (pip)
+# transformers          4.21.3           (pip)
+# datasets              2.4.0            (pip)
+# jupyterlab            3.4.6            (pip)
+# numpy                 1.23.2           (pip)
+# scipy                 1.9.1            (pip)
+# pandas                1.4.4            (pip)
+# cloudpickle           2.1.0            (pip)
+# scikit-image          0.19.3           (pip)
+# scikit-learn          1.1.2            (pip)
+# matplotlib            3.5.3            (pip)
+# ipython               8.5.0            (pip)
+# ipykernel             6.15.2           (pip)
+# ipywidgets            8.0.2            (pip)
+# cython                0.29.32          (pip)
+# tqdm                  4.64.1           (pip)
+# gdown                 4.5.1            (pip)
+# xgboost               1.6.2            (pip)
+# pillow                9.2.0            (pip)
+# seaborn               0.12.0           (pip)
+# sqlalchemy            1.4.40           (pip)
+# spacy                 3.4.1            (pip)
+# nltk                  3.7              (pip)
+# boto3                 1.24.66          (pip)
+# tabulate              0.8.10           (pip)
+# future                0.18.2           (pip)
+# gradient              2.0.6            (pip)
+# jsonify               0.5              (pip)
+# opencv-python         4.6.0.66         (pip)
+# pyyaml                5.4.1            (pip)
+# sentence-transformers 2.2.2            (pip)
+# nodejs                16.x latest      (apt)
+# default-jre           latest           (apt)
+# default-jdk           latest           (apt)
 
 
-# Update PATH
-export PATH=${PATH}:/home/paperspace/.local/bin
-echo "export PATH=${PATH}:/home/paperspace/.local/bin" >> ~/.bashrc
-echo "export PATH=${PATH}:/home/paperspace/src/miniconda/bin" >> ~/.bashrc
+# ==================================================================
+# Initial setup
+# ------------------------------------------------------------------
+
+    # Set ENV variables
+    export APT_INSTALL="apt-get install -y --no-install-recommends"
+    export PIP_INSTALL="python3 -m pip --no-cache-dir install --upgrade"
+    export CONDA_INSTALL="conda install -y"
+    export GIT_CLONE="git clone --depth 10"
+
+    # Update apt
+    sudo apt update
+
+
+# ==================================================================
+# Tools
+# ------------------------------------------------------------------
+
+    DEBIAN_FRONTEND=noninteractive \
+    sudo $APT_INSTALL \
+        gcc \
+        make \
+        pkg-config \
+        apt-transport-https \
+        build-essential \
+        apt-utils \
+        ca-certificates \
+        wget \
+        rsync \
+        git \
+        vim \
+        libssl-dev \
+        curl \
+        openssh-client \
+        unzip \
+        unrar \
+        zip \
+        awscli \
+        csvkit \
+        emacs \
+        joe \
+        jq \
+        dialog \
+        man-db \
+        manpages \
+        manpages-dev \
+        manpages-posix \
+        manpages-posix-dev \
+        nano \
+        iputils-ping \
+        sudo \
+        ffmpeg \
+        libsm6 \
+        libxext6 \
+        libboost-all-dev
+
+
+# ==================================================================
+# Conda
+# ------------------------------------------------------------------
+
+    #Based on https://docs.anaconda.com/anaconda/install/linux/
+
+    sudo $APT_INSTALL libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+    sudo wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+    sudo bash ~/Anaconda3-2022.05-Linux-x86_64.sh -b -p $HOME/anaconda3
+    
+    sudo chown -R $USER:$USER $HOME/anaconda3
+    sudo chmod -R +x $HOME/anaconda3
+    
+    source $HOME/anaconda3/bin/activate
+    conda init bash
+    conda deactivate
+    
+    export PATH=$HOME/anaconda3/bin:${PATH}
+    
+    $PIP_INSTALL pip
+    
+    rm -f ~/Anaconda3-2022.05-Linux-x86_64.sh
+
+
+# ==================================================================
+# Installing CUDA packages (CUDA Toolkit 11.7 & CUDNN 8.5.0)
+# ------------------------------------------------------------------
+
+    $CONDA_INSTALL -c nvidia/label/cuda-11.7.1 cuda
+
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+    sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+    sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+    sudo apt-get update
+    sudo apt-get install libcudnn8=8.5.0.*-1+cuda11.7
+    sudo apt-get install libcudnn8-dev=8.5.0.*-1+cuda11.7
+
+
+# ==================================================================
+# PyTorch
+# ------------------------------------------------------------------
+
+    # Based on https://pytorch.org/get-started/locally/
+
+    $PIP_INSTALL torch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+        
+
+# ==================================================================
+# JAX
+# ------------------------------------------------------------------
+
+    # Based on https://github.com/google/jax#pip-installation-gpu-cuda
+
+    $PIP_INSTALL "jax[cuda11_cudnn82]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+
+
+# ==================================================================
+# TensorFlow
+# ------------------------------------------------------------------
+
+    # Based on https://www.tensorflow.org/install/pip
+
+    export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
+    $PIP_INSTALL tensorflow==2.9.2
+
+
+# ==================================================================
+# Hugging Face
+# ------------------------------------------------------------------
+    
+    # Based on https://huggingface.co/docs/transformers/installation
+    # Based on https://huggingface.co/docs/datasets/installation
+
+    $PIP_INSTALL transformers==4.21.3 datasets==2.4.0
+
+
+# ==================================================================
+# JupyterLab
+# ------------------------------------------------------------------
+
+    # Based on https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#pip
+
+    $PIP_INSTALL jupyterlab==3.4.6
+
+
+# ==================================================================
+# Additional Python Packages
+# ------------------------------------------------------------------
+
+    $PIP_INSTALL \
+        numpy==1.23.2 \
+        scipy==1.9.1 \
+        pandas==1.4.4 \
+        cloudpickle==2.1.0 \
+        scikit-image==0.19.3 \
+        scikit-learn==1.1.2 \
+        matplotlib==3.5.3 \
+        ipython==8.5.0 \
+        ipykernel==6.15.2 \
+        ipywidgets==8.0.2 \
+        cython==0.29.32 \
+        tqdm==4.64.1 \
+        gdown==4.5.1 \
+        xgboost==1.6.2 \
+        pillow==9.2.0 \
+        seaborn==0.12.0 \
+        sqlalchemy==1.4.40 \
+        spacy==3.4.1 \
+        nltk==3.7 \
+        boto3==1.24.66 \
+        tabulate==0.8.10 \
+        future==0.18.2 \
+        gradient==2.0.6 \
+        jsonify==0.5 \
+        opencv-python==4.6.0.66 \
+        pyyaml==5.4.1 \
+        sentence-transformers==2.2.2
+
+
+# ==================================================================
+# Installing JRE and JDK
+# ------------------------------------------------------------------
+
+    sudo $APT_INSTALL default-jre
+    sudo $APT_INSTALL default-jdk
+
+
+# ==================================================================
+# CMake
+# ------------------------------------------------------------------
+
+    sudo $GIT_CLONE https://github.com/Kitware/CMake ~/cmake
+    cd ~/cmake
+    sudo ./bootstrap
+    sudo make -j"$(nproc)" install
+
+
+# ==================================================================
+# Node.js and Jupyter Notebook Extensions
+# ------------------------------------------------------------------
+
+    sudo curl -sL https://deb.nodesource.com/setup_16.x | sudo bash
+    sudo $APT_INSTALL nodejs
+    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git && \
+    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --sys-prefix
+
+
+# ==================================================================
+# Config & Cleanup
+# ------------------------------------------------------------------
+
+    rm $HOME/anaconda3/lib/libtinfo.so.6
+    rm $HOME/anaconda3/lib/libncursesw.so.6
+
+    echo "export PATH=${PATH}" >> ~/.bashrc
+    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bashrc
+
+    echo "export PATH=${PATH}" >> ~/.profile
+    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.profile
+
+    echo "export PATH=${PATH}" >> ~/.bash_profile
+    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bash_profile
+
+

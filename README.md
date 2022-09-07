@@ -111,7 +111,7 @@ ISC: https://opensource.org/licenses/ISC
 
 Open source software can be used for commercial purposes: https://opensource.org/docs/osd#fields-of-endeavor.
 
-Note: Anaconda has it's own End User Licensing around commercial use
+Note: Anaconda has its own End User Licensing agreements around commercial use
 
 ## Software not included
 

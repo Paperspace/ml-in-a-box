@@ -15,9 +15,9 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 |                  | cuDNN            | 8.5.0.*-1+cuda11.7     | Ubuntu repo    | Nvidia GPU deep learning library |
 |                  | CUDA toolkit     | 11.7.1                 | Conda          | Needed for `nvcc` command for cuDNN. Installed with Conda CUDA installation |
 | Infra            | Conda            | 4.14.0                 | Ubuntu repo    | Package management system that installs Python3, pip, and other packages |
-|                  | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Enginer community edition |
+|                  | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Engine community edition |
 |                  | NVidia Docker    | 2.6.0-1                | pre-installed  | Enable NVidia GPU in Docker containers |
-| Python           | Python           | 3.9.12                 | Conda          | Most widely used programming language for data science. Version 3.9.12 is installed when downloding Anaconda3 and is compatible with other software and their versions installed here. |
+| Python           | Python           | 3.9.12                 | Conda          | Most widely used programming language for data science. Version 3.9.12 is installed when downloading Anaconda3 and is compatible with other software and their versions installed here. |
 |                  | pip3             | 22.2.2                 | Conda          | Enable easy installation of 1000s of other data science, etc., packages. Installed with Anaconda3 installation. |
 |                  | NumPy            | 1.23.2                 | pip3           | Handle arrays, matrices, etc., in Python |
 |                  | SciPy            | 1.9.1                  | pip3           | Fundamental algorithms for scientific computing in Python |
@@ -28,7 +28,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 |                  | IPykernel        | 6.15.2                 | pip3           | Provides the IPython kernel for Jupyter. |
 |                  | IPywidgets       | 8.0.2                  | pip3           | Interactive HTML widgets for Jupyter notebooks and the IPython kernel | 
 |                  | Cython           | 0.29.32                | pip3           | Enables writing C extensions for Python |  
-|                  | tqdm             | 4.64.1                 | pip3           | Fast, ecxtensible progress meter |  
+|                  | tqdm             | 4.64.1                 | pip3           | Fast, extensible progress meter |  
 |                  | gdown            | 4.5.1                  | pip3           | Google drive direct download of big files |  
 |                  | Pillow           | 9.2.0                  | pip3           | Python imaging library |  
 |                  | seaborn          | 0.12.0                 | pip3           | Python visualization library based on matplotlib |

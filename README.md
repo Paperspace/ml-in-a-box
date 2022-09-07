@@ -14,7 +14,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 |                  | CUDA             | 11.7.1                 | Conda          | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
 |                  | cuDNN            | 8.5.0.*-1+cuda11.7     | Ubuntu repo    | Nvidia GPU deep learning library |
 |                  | CUDA toolkit     | 11.7.1                 | Conda          | Needed for `nvcc` command for cuDNN. Installed with Conda CUDA installation |
-| Infra            | Conda            | 4.14.0                 | Ubuntu repo    | Package management system that installs Python3, pip, and other packages |
+| Infra            | Anaconda         | 4.14.0                 | Ubuntu repo    | Package management system that installs Python3, pip, and other python packages |
 |                  | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Engine community edition |
 |                  | NVidia Docker    | 2.6.0-1                | pre-installed  | Enable NVidia GPU in Docker containers |
 | Python           | Python           | 3.9.12                 | Conda          | Most widely used programming language for data science. Version 3.9.12 is installed when downloading Anaconda3 and is compatible with other software and their versions installed here. |
@@ -59,7 +59,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | ---------------       | -------------          | ------------- |
 | CUDA 	                | NVidia EULA		  	 | https://docs.nvidia.com/cuda/eula/index.html |
 | cuDNN                 | NVidia EULA            | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
-| Conda                 | ??                     | ?? |
+| Anaconda              | Other                  | https://legal.anaconda.com/policies/en/?name=end-user-license-agreements#anaconda-distribution |
 | Docker Engine         | Apache 2.0 	         | https://github.com/moby/moby/blob/master/LICENSE |
 | JupyterLab            | New BSD      	         | https://github.com/jupyterlab/jupyterlab/blob/master/LICENSE |
 | Matplotlib            | PSF-based      		 | https://matplotlib.org/stable/users/license.html |
@@ -70,34 +70,34 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | Pip3                  | MIT                    | https://github.com/pypa/pip/blob/main/LICENSE.txt |
 | Python                | PSF                    | https://en.wikipedia.org/wiki/Python_(programming_language) |
 | Scikit-learn          | New BSD                | https://github.com/scikit-learn/scikit-learn/blob/main/COPYING |
-| Scikit-image          | New BSD                 | https://github.com/scikit-image/scikit-image/blob/main/LICENSE.txt |
+| Scikit-image          | New BSD                | https://github.com/scikit-image/scikit-image/blob/main/LICENSE.txt |
 | TensorFlow            | Apache 2.0             | https://github.com/tensorflow/tensorflow/blob/master/LICENSE |
 | PyTorch               | New BSD                | https://github.com/pytorch/pytorch/blob/master/LICENSE |
 | Jax                   | Apache 2.0             | https://github.com/google/jax/blob/main/LICENSE |
-| Transformers          | Apache 2.0            | https://github.com/huggingface/transformers/blob/main/LICENSE |
+| Transformers          | Apache 2.0             | https://github.com/huggingface/transformers/blob/main/LICENSE |
 | Datasets              | Apache 2.0             | https://github.com/huggingface/datasets/blob/main/LICENSE |
 | XGBoost               | Apache 2.0             | https://github.com/dmlc/xgboost/blob/master/LICENSE |
-| Sentence Transformers | Apache 2.0                     | https://github.com/UKPLab/sentence-transformers/blob/master/LICENSE |
-| SciPy          | New BSD              | https://github.com/scipy/scipy/blob/main/LICENSE.txt |
-| Cloudpickle          | New BSD             | https://github.com/cloudpipe/cloudpickle/blob/master/LICENSE |
-| Ipython          | New BSD             | https://github.com/ipython/ipython/blob/main/LICENSE |
-| IPykernel          | New BSD             | https://github.com/ipython/ipykernel/blob/main/COPYING.md |
-| IPywidgets          | New BSD             | https://github.com/jupyter-widgets/ipywidgets/blob/master/LICENSE |
-| Cython          | Apache 2.0             | https://github.com/cython/cython/blob/master/LICENSE.txt |
-| tqdm          | MIT            | https://github.com/tqdm/tqdm/blob/master/LICENCE |
-| gdown          | MIT             | https://github.com/wkentaro/gdown/blob/main/LICENSE |
-| Pillow          | HPND             | https://github.com/python-pillow/Pillow/blob/main/LICENSE |
-| seaborn          | New BSD             | https://github.com/mwaskom/seaborn/blob/master/LICENSE.md |
-| SQLAlchemy          | MIT            | https://github.com/sqlalchemy/sqlalchemy/blob/main/LICENSE |
-| spaCy          | MIT             | https://github.com/explosion/spaCy/blob/master/LICENSE |
-| nltk          | Apache 2.0            | https://github.com/nltk/nltk/blob/develop/LICENSE.txt |
-| boto3          | Apache 2.0             | https://github.com/boto/boto3/blob/develop/LICENSE |
-| tabulate          | MIT             | https://github.com/astanin/python-tabulate/blob/master/LICENSE |
-| future          | MIT             | https://github.com/PythonCharmers/python-future/blob/master/LICENSE.txt |
-| gradient          | ISC             | https://github.com/Paperspace/gradient-cli/blob/master/LICENSE.txt |
-| jsonify          | MIT             | https://pypi.org/project/jsonify/0.5/#data |
-| opencv-python          | MIT             | https://github.com/opencv/opencv-python/blob/4.x/LICENSE.txt |
-| pyyaml          | MIT             | https://github.com/yaml/pyyaml/blob/master/LICENSE |
+| Sentence Transformers | Apache 2.0             | https://github.com/UKPLab/sentence-transformers/blob/master/LICENSE |
+| SciPy                 | New BSD                | https://github.com/scipy/scipy/blob/main/LICENSE.txt |
+| Cloudpickle           | New BSD                | https://github.com/cloudpipe/cloudpickle/blob/master/LICENSE |
+| Ipython               | New BSD                | https://github.com/ipython/ipython/blob/main/LICENSE |
+| IPykernel             | New BSD                | https://github.com/ipython/ipykernel/blob/main/COPYING.md |
+| IPywidgets            | New BSD                | https://github.com/jupyter-widgets/ipywidgets/blob/master/LICENSE |
+| Cython                | Apache 2.0             | https://github.com/cython/cython/blob/master/LICENSE.txt |
+| tqdm                  | MIT                    | https://github.com/tqdm/tqdm/blob/master/LICENCE |
+| gdown                 | MIT                    | https://github.com/wkentaro/gdown/blob/main/LICENSE |
+| Pillow                | HPND                   | https://github.com/python-pillow/Pillow/blob/main/LICENSE |
+| seaborn               | New BSD                | https://github.com/mwaskom/seaborn/blob/master/LICENSE.md |
+| SQLAlchemy            | MIT                    | https://github.com/sqlalchemy/sqlalchemy/blob/main/LICENSE |
+| spaCy                 | MIT                    | https://github.com/explosion/spaCy/blob/master/LICENSE |
+| nltk                  | Apache 2.0             | https://github.com/nltk/nltk/blob/develop/LICENSE.txt |
+| boto3                 | Apache 2.0             | https://github.com/boto/boto3/blob/develop/LICENSE |
+| tabulate              | MIT                    | https://github.com/astanin/python-tabulate/blob/master/LICENSE |
+| future                | MIT                    | https://github.com/PythonCharmers/python-future/blob/master/LICENSE.txt |
+| gradient              | ISC                    | https://github.com/Paperspace/gradient-cli/blob/master/LICENSE.txt |
+| jsonify               | MIT                    | https://pypi.org/project/jsonify/0.5/#data |
+| opencv-python         | MIT                    | https://github.com/opencv/opencv-python/blob/4.x/LICENSE.txt |
+| pyyaml                | MIT                    | https://github.com/yaml/pyyaml/blob/master/LICENSE |
 
 
 Information about license types:
@@ -109,7 +109,7 @@ PSF = Python Software Foundation: https://en.wikipedia.org/wiki/Python_Software_
 HPND = Historical Permission Notice and Disclaimer: https://opensource.org/licenses/HPND
 ISC: https://opensource.org/licenses/ISC
 
-Open source software can be used for commercial purposes: https://opensource.org/docs/osd#fields-of-endeavor .
+Open source software can be used for commercial purposes: https://opensource.org/docs/osd#fields-of-endeavor.
 
 ## Software not included
 

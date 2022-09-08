@@ -8,7 +8,7 @@
 # torchvision           0.13.1           (pip)
 # torchaudio            0.12.1           (pip)
 # tensorflow            2.9.2            (pip)
-# jax                   [cuda11_cudnn82] (pip)
+# jax                   0.3.17           (pip)
 # transformers          4.21.3           (pip)
 # datasets              2.4.0            (pip)
 # jupyterlab            3.4.6            (pip)
@@ -126,7 +126,7 @@
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 11.7 & CUDNN 8.5.0)
+# Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)
 # ------------------------------------------------------------------
 
     $CONDA_INSTALL -c nvidia/label/cuda-11.7.1 cuda

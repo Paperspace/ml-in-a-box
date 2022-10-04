@@ -3,7 +3,7 @@
 # ==================================================================
 # Module list
 # ------------------------------------------------------------------
-# python                3.9.12           (conda)
+# python                3.9.12           (apt)
 # torch                 1.12.1           (pip)
 # torchvision           0.13.1           (pip)
 # torchaudio            0.12.1           (pip)
@@ -107,29 +107,73 @@
 
     #Based on https://docs.anaconda.com/anaconda/install/linux/
 
-    sudo $APT_INSTALL libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
-    sudo wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
-    sudo bash ~/Anaconda3-2022.05-Linux-x86_64.sh -b -p $HOME/anaconda3
+    # sudo $APT_INSTALL libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+    # sudo wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+    # sudo bash ~/Anaconda3-2022.05-Linux-x86_64.sh -b -p $HOME/anaconda3
     
-    sudo chown -R $USER:$USER $HOME/anaconda3
-    sudo chmod -R +x $HOME/anaconda3
+    # sudo chown -R $USER:$USER $HOME/anaconda3
+    # sudo chmod -R +x $HOME/anaconda3
     
-    source $HOME/anaconda3/bin/activate
-    conda init bash
-    conda deactivate
+    # source $HOME/anaconda3/bin/activate
+    # conda init bash
+    # conda deactivate
     
-    export PATH=$HOME/anaconda3/bin:${PATH}
+    # export PATH=$HOME/anaconda3/bin:${PATH}
     
-    $PIP_INSTALL pip
+    # $PIP_INSTALL pip
     
-    rm -f ~/Anaconda3-2022.05-Linux-x86_64.sh
+    # rm -f ~/Anaconda3-2022.05-Linux-x86_64.sh
+
+
+# ==================================================================
+# Python
+# ------------------------------------------------------------------
+
+    #Based on https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+
+    # Adding repository for python3.9
+    DEBIAN_FRONTEND=noninteractive \
+    $APT_INSTALL software-properties-common
+    add-apt-repository ppa:deadsnakes/ppa -y
+
+    # Installing python3.9
+    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+    python3.9 \
+    python3.9-dev \
+    python3-distutils-extra
+
+    # Installing pip
+    wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
+    python3.9 ~/get-pip.py
+
+    # Add symlink so python and python3 commands use same python3.9 executable
+    ln -s /usr/bin/python3.9 /usr/local/bin/python3
+    ln -s /usr/bin/python3.9 /usr/local/bin/python
 
 
 # ==================================================================
 # Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)
 # ------------------------------------------------------------------
 
-    $CONDA_INSTALL -c nvidia/label/cuda-11.7.1 cuda
+    # $CONDA_INSTALL -c nvidia/label/cuda-11.7.1 cuda
+
+    # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+    # sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+
+    # wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
+    # sudo dpkg -i cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
+
+    # sudo apt-key add /var/cuda-repo-ubuntu2004-11-3-local/7fa2af80.pub
+    # sudo apt-get update
+
+    # sudo apt-get -y install cuda
+    # export PATH=/usr/local/cuda-11.3/bin${PATH:+:${PATH}}
+    # export LD_LIBRARY_PATH=/usr/local/cuda-11.3/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+
+    sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+    sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
     sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600

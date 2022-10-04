@@ -134,7 +134,7 @@ Some generic categories of software not included:
 | Connectors         | Academic Torrents | |
 | Dashboarding       | panel, dash, voila, streamlit | |
 | Databases          | MySQL, Hive, PostgreSQL, Prometheus, Neo4j, MongoDB, Cassandra, Redis | No particular infra to connect to databases |
-| Deep Learning      | Caffe, Caffe2, Theano, PaddlePaddle, Chainer, Torch, MXNet | PyTorch and TensorFlow are dominant, rest niche |
+| Deep Learning      | Caffe, Caffe2, Theano, PaddlePaddle, Chainer, MXNet | PyTorch and TensorFlow are dominant, rest niche |
 | Deployment         | Dash, TFServing, R Shiny, Flask | Use Gradient Deployments |
 | Distributed.       | Horovod, OpenMPI | Use Gradient distributed |
 | Feature store      | Feast | |

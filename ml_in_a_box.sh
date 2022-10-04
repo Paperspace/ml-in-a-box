@@ -3,7 +3,7 @@
 # ==================================================================
 # Module list
 # ------------------------------------------------------------------
-# python                3.9.12           (apt)
+# python                3.9.14           (apt)
 # torch                 1.12.1           (pip)
 # torchvision           0.13.1           (pip)
 # torchaudio            0.12.1           (pip)
@@ -50,8 +50,8 @@
 
     # Set ENV variables
     export APT_INSTALL="apt-get install -y --no-install-recommends"
-    export PIP_INSTALL="python3 -m pip --no-cache-dir install --upgrade"
-    export CONDA_INSTALL="conda install -y"
+    export PIP_INSTALL="python -m pip --no-cache-dir install --upgrade"
+    # export CONDA_INSTALL="conda install -y"
     export GIT_CLONE="git clone --depth 10"
 
     # Update apt
@@ -133,23 +133,23 @@
 
     # Adding repository for python3.9
     DEBIAN_FRONTEND=noninteractive \
-    $APT_INSTALL software-properties-common
-    add-apt-repository ppa:deadsnakes/ppa -y
+    sudo $APT_INSTALL software-properties-common
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
 
     # Installing python3.9
-    DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
+    DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
     python3.9 \
     python3.9-dev \
     python3-distutils-extra
 
+    # Add symlink so python and python3 commands use same python3.9 executable
+    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python3
+    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python
+
     # Installing pip
     wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
-    python3.9 ~/get-pip.py
-
-    # Add symlink so python and python3 commands use same python3.9 executable
-    ln -s /usr/bin/python3.9 /usr/local/bin/python3
-    ln -s /usr/bin/python3.9 /usr/local/bin/python
-
+    python ~/get-pip.py
+    rm ~/get-pip.py
 
 # ==================================================================
 # Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)

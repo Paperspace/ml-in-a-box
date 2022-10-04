@@ -138,18 +138,22 @@
 
     # Installing python3.9
     DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
-    python3.9 \
-    python3.9-dev \
-    python3-distutils-extra
+    python3.10 \
+    python3.10-dev \
+    python3.10-distutils-extra
 
     # Add symlink so python and python3 commands use same python3.9 executable
-    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python3
-    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python
+    sudo ln -s /usr/bin/python3.10 /usr/local/bin/python3
+    sudo ln -s /usr/bin/python3.10 /usr/local/bin/python
+    sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
 
     # Installing pip
-    wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
-    python ~/get-pip.py
-    rm ~/get-pip.py
+    DEBIAN_FRONTEND=noninteractive \
+    sudo $APT_INSTALL python3-pip
+
+    # wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
+    # python ~/get-pip.py
+    # rm ~/get-pip.py
 
 # ==================================================================
 # Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)

@@ -139,17 +139,31 @@
     # Installing python3.9
     DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
     python3.10 \
-    python3.10-dev \
-    python3.10-distutils-extra
+    python3.10-distutils
+    # python3.10-dev \
+    # python3.10-distutils-extra
 
-    # Add symlink so python and python3 commands use same python3.9 executable
+    # Add symlink so python and python3 commands use same python3.10 executable
     sudo ln -s /usr/bin/python3.10 /usr/local/bin/python3
     sudo ln -s /usr/bin/python3.10 /usr/local/bin/python
     sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
 
     # Installing pip
-    DEBIAN_FRONTEND=noninteractive \
-    sudo $APT_INSTALL python3-pip
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
+    export PATH=$PATH:/home/paperspace/.local/bin
+
+    # export PATH=$PATH:/home/paperspace/.local/bin
+    # wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
+    # python ~/get-pip.py
+    # rm ~/get-pip.py
+    
+    # sudo ln -sf /home/paperspace/.local/bin/pip /usr/bin/pip
+    # sudo ln -sf /home/paperspace/.local/bin/pip3 /usr/bin/pip3
+    # sudo ln -sf /home/paperspace/.local/bin/pip3.10 /usr/bin/pip3.10
+
+    # Installing pip
+    # DEBIAN_FRONTEND=noninteractive \
+    # sudo $APT_INSTALL python3-pip
 
     # wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
     # python ~/get-pip.py
@@ -175,15 +189,16 @@
     # export LD_LIBRARY_PATH=/usr/local/cuda-11.3/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 
-    sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-    sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+    # sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+    # sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+    # sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
 
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
     sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
     sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
     sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
     sudo apt-get update
+    sudo apt-get install cuda #New
     sudo apt-get install libcudnn8=8.5.0.*-1+cuda11.7
     sudo apt-get install libcudnn8-dev=8.5.0.*-1+cuda11.7
 
@@ -212,7 +227,7 @@
 
     # Based on https://www.tensorflow.org/install/pip
 
-    export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
+    # export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
     $PIP_INSTALL tensorflow==2.9.2
 
 
@@ -301,16 +316,16 @@
 # Config & Cleanup
 # ------------------------------------------------------------------
 
-    rm $HOME/anaconda3/lib/libtinfo.so.6
-    rm $HOME/anaconda3/lib/libncursesw.so.6
+    # rm $HOME/anaconda3/lib/libtinfo.so.6
+    # rm $HOME/anaconda3/lib/libncursesw.so.6
 
     echo "export PATH=${PATH}" >> ~/.bashrc
-    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bashrc
+    # echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bashrc
 
     echo "export PATH=${PATH}" >> ~/.profile
-    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.profile
+    # echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.profile
 
     echo "export PATH=${PATH}" >> ~/.bash_profile
-    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bash_profile
+    # echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bash_profile
 
 

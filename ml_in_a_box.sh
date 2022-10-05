@@ -276,8 +276,8 @@
 
     sudo curl -sL https://deb.nodesource.com/setup_16.x | sudo bash
     sudo $APT_INSTALL nodejs
-    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git && \
-    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --sys-prefix
+    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git
+    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --user
 
 
 # ==================================================================

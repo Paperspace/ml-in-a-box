@@ -51,7 +51,6 @@
     # Set ENV variables
     export APT_INSTALL="apt-get install -y --no-install-recommends"
     export PIP_INSTALL="python -m pip --no-cache-dir install --upgrade"
-    # export CONDA_INSTALL="conda install -y"
     export GIT_CLONE="git clone --depth 10"
 
     # Update apt
@@ -75,6 +74,7 @@
         rsync \
         git \
         vim \
+        mlocate \
         libssl-dev \
         curl \
         openssh-client \
@@ -138,67 +138,35 @@
 
     # Installing python3.9
     DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
-    python3.10 \
-    python3.10-distutils
-    # python3.10-dev \
-    # python3.10-distutils-extra
+    python3.9 \
+    python3.9-dev \
+    python3-distutils-extra
 
-    # Add symlink so python and python3 commands use same python3.10 executable
-    sudo ln -s /usr/bin/python3.10 /usr/local/bin/python3
-    sudo ln -s /usr/bin/python3.10 /usr/local/bin/python
-    sudo ln -sf /usr/bin/python3.10 /usr/bin/python3
+    # Add symlink so python and python3 commands use same python3.9 executable
+    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python3
+    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python
 
     # Installing pip
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
     export PATH=$PATH:/home/paperspace/.local/bin
 
-    # export PATH=$PATH:/home/paperspace/.local/bin
-    # wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
-    # python ~/get-pip.py
-    # rm ~/get-pip.py
-    
-    # sudo ln -sf /home/paperspace/.local/bin/pip /usr/bin/pip
-    # sudo ln -sf /home/paperspace/.local/bin/pip3 /usr/bin/pip3
-    # sudo ln -sf /home/paperspace/.local/bin/pip3.10 /usr/bin/pip3.10
-
-    # Installing pip
-    # DEBIAN_FRONTEND=noninteractive \
-    # sudo $APT_INSTALL python3-pip
-
-    # wget -O ~/get-pip.py https://bootstrap.pypa.io/get-pip.py 
-    # python ~/get-pip.py
-    # rm ~/get-pip.py
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)
+# Installing CUDA packages (CUDA Toolkit 11.8.0 & CUDNN 8.5.0)
 # ------------------------------------------------------------------
 
-    # $CONDA_INSTALL -c nvidia/label/cuda-11.7.1 cuda
-
-    # wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-    # sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-
-    # wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
-    # sudo dpkg -i cuda-repo-ubuntu2004-11-3-local_11.3.0-465.19.01-1_amd64.deb
-
-    # sudo apt-key add /var/cuda-repo-ubuntu2004-11-3-local/7fa2af80.pub
-    # sudo apt-get update
-
-    # sudo apt-get -y install cuda
-    # export PATH=/usr/local/cuda-11.3/bin${PATH:+:${PATH}}
-    # export LD_LIBRARY_PATH=/usr/local/cuda-11.3/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-
-    # sudo wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-    # sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-    # sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+    # Based on https://developer.nvidia.com/cuda-toolkit-archive
+    # Based on https://developer.nvidia.com/rdp/cudnn-archive
+    wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run
+    sudo sh cuda_11.7.1_515.65.01_linux.run --silent --kernelobjects --toolkit
+    export PATH=$PATH:/usr/local/cuda-11.7/bin
+    export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64
+    rm cuda_11.7.1_515.65.01_linux.run
 
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
     sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
     sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
     sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-    sudo apt-get update
-    sudo apt-get install cuda #New
     sudo apt-get install libcudnn8=8.5.0.*-1+cuda11.7
     sudo apt-get install libcudnn8-dev=8.5.0.*-1+cuda11.7
 
@@ -320,12 +288,12 @@
     # rm $HOME/anaconda3/lib/libncursesw.so.6
 
     echo "export PATH=${PATH}" >> ~/.bashrc
-    # echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bashrc
+    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bashrc
 
     echo "export PATH=${PATH}" >> ~/.profile
-    # echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.profile
+    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.profile
 
     echo "export PATH=${PATH}" >> ~/.bash_profile
-    # echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bash_profile
+    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bash_profile
 
 

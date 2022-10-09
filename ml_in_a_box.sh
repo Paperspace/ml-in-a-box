@@ -158,7 +158,7 @@
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
     # Based on https://developer.nvidia.com/rdp/cudnn-archive
     wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run
-    sudo sh cuda_11.7.1_515.65.01_linux.run --silent --kernelobjects --toolkit
+    sudo sh cuda_11.7.1_515.65.01_linux.run --silent --toolkit
     export PATH=$PATH:/usr/local/cuda-11.7/bin
     export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64
     rm cuda_11.7.1_515.65.01_linux.run

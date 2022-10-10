@@ -12,12 +12,12 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | -------------    | -------------    | -------------          | -------------  | ------------- |
 | GPU              | NVidia Driver    | 515.65.01              | pre-installed  | Enable Nvidia GPUs. Latest version as of VM creation date |
 |                  | CUDA             | 11.7.1                 | Install script | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
-|                  | CUDA toolkit     | 11.7.1                 | Apt            | Needed for `nvcc` command for cuDNN. Installed with Conda CUDA installation |
+|                  | CUDA toolkit     | 11.7.1                 | Apt            | Needed for `nvcc` command for cuDNN |
 |                  | cuDNN            | 8.5.0.*-1+cuda11.7     | Ubuntu repo    | Nvidia GPU deep learning library |
 | Infra            | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Engine community edition |
 |                  | NVidia Docker    | 2.6.0-1                | pre-installed  | Enable NVidia GPU in Docker containers |
 | Python           | Python           | 3.9.14                 | Apt            | Most widely used programming language for data science |
-|                  | pip3             | 22.2.2                 | Conda          | Enable easy installation of 1000s of other data science, etc., packages. Installed with Anaconda3 installation. |
+|                  | pip3             | 22.2.2                 | Apt            | Enable easy installation of 1000s of other data science, etc., packages. |
 |                  | NumPy            | 1.23.2                 | pip3           | Handle arrays, matrices, etc., in Python |
 |                  | SciPy            | 1.9.1                  | pip3           | Fundamental algorithms for scientific computing in Python |
 |                  | Pandas           | 1.4.4                  | pip3           | De facto standard for data science data exploration/preparation in Python |
@@ -59,7 +59,6 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | ---------------       | -------------          | ------------- |
 | CUDA 	                | NVidia EULA		  	 | https://docs.nvidia.com/cuda/eula/index.html |
 | cuDNN                 | NVidia EULA            | https://docs.nvidia.com/deeplearning/cudnn/sla/index.html |
-| Anaconda              | Other                  | https://legal.anaconda.com/policies/en/?name=end-user-license-agreements#anaconda-distribution |
 | Docker Engine         | Apache 2.0 	         | https://github.com/moby/moby/blob/master/LICENSE |
 | JupyterLab            | New BSD      	         | https://github.com/jupyterlab/jupyterlab/blob/master/LICENSE |
 | Matplotlib            | PSF-based      		 | https://matplotlib.org/stable/users/license.html |
@@ -112,7 +111,6 @@ ISC: https://opensource.org/licenses/ISC
 
 Open source software can be used for commercial purposes: https://opensource.org/docs/osd#fields-of-endeavor.
 
-Note: Anaconda has its own End User Licensing agreements around commercial use
 
 ## Software not included
 

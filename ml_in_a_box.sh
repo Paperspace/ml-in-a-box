@@ -3,7 +3,7 @@
 # ==================================================================
 # Module list
 # ------------------------------------------------------------------
-# python                3.9.12           (conda)
+# python                3.9.14           (apt)
 # torch                 1.12.1           (pip)
 # torchvision           0.13.1           (pip)
 # torchaudio            0.12.1           (pip)
@@ -39,6 +39,7 @@
 # opencv-python         4.6.0.66         (pip)
 # pyyaml                5.4.1            (pip)
 # sentence-transformers 2.2.2            (pip)
+# wandb                 0.13.4           (pip)
 # nodejs                16.x latest      (apt)
 # default-jre           latest           (apt)
 # default-jdk           latest           (apt)
@@ -50,8 +51,7 @@
 
     # Set ENV variables
     export APT_INSTALL="apt-get install -y --no-install-recommends"
-    export PIP_INSTALL="python3 -m pip --no-cache-dir install --upgrade"
-    export CONDA_INSTALL="conda install -y"
+    export PIP_INSTALL="python -m pip --no-cache-dir install --upgrade"
     export GIT_CLONE="git clone --depth 10"
 
     # Update apt
@@ -75,6 +75,7 @@
         rsync \
         git \
         vim \
+        mlocate \
         libssl-dev \
         curl \
         openssh-client \
@@ -102,40 +103,49 @@
 
 
 # ==================================================================
-# Conda
+# Python
 # ------------------------------------------------------------------
 
-    #Based on https://docs.anaconda.com/anaconda/install/linux/
+    #Based on https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 
-    sudo $APT_INSTALL libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
-    sudo wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
-    sudo bash ~/Anaconda3-2022.05-Linux-x86_64.sh -b -p $HOME/anaconda3
-    
-    sudo chown -R $USER:$USER $HOME/anaconda3
-    sudo chmod -R +x $HOME/anaconda3
-    
-    source $HOME/anaconda3/bin/activate
-    conda init bash
-    conda deactivate
-    
-    export PATH=$HOME/anaconda3/bin:${PATH}
-    
-    $PIP_INSTALL pip
-    
-    rm -f ~/Anaconda3-2022.05-Linux-x86_64.sh
+    # Adding repository for python3.9
+    DEBIAN_FRONTEND=noninteractive \
+    sudo $APT_INSTALL software-properties-common
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+
+    # Installing python3.9
+    DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
+    python3.9 \
+    python3.9-dev \
+    python3.9-venv \
+    python3-distutils-extra
+
+    # Add symlink so python and python3 commands use same python3.9 executable
+    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python3
+    sudo ln -s /usr/bin/python3.9 /usr/local/bin/python
+
+    # Installing pip
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.9
+    export PATH=$PATH:/home/paperspace/.local/bin
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)
+# Installing CUDA packages (CUDA Toolkit 11.8.0 & CUDNN 8.5.0)
 # ------------------------------------------------------------------
 
-    $CONDA_INSTALL -c nvidia/label/cuda-11.7.1 cuda
+    # Based on https://developer.nvidia.com/cuda-toolkit-archive
+    # Based on https://developer.nvidia.com/rdp/cudnn-archive
+
+    wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run
+    sudo sh cuda_11.7.1_515.65.01_linux.run --silent --toolkit
+    export PATH=$PATH:/usr/local/cuda-11.7/bin
+    export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64
+    rm cuda_11.7.1_515.65.01_linux.run
 
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
     sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
     sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
     sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-    sudo apt-get update
     sudo apt-get install libcudnn8=8.5.0.*-1+cuda11.7
     sudo apt-get install libcudnn8-dev=8.5.0.*-1+cuda11.7
 
@@ -164,7 +174,7 @@
 
     # Based on https://www.tensorflow.org/install/pip
 
-    export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
+    # export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
     $PIP_INSTALL tensorflow==2.9.2
 
 
@@ -218,7 +228,8 @@
         jsonify==0.5 \
         opencv-python==4.6.0.66 \
         pyyaml==5.4.1 \
-        sentence-transformers==2.2.2
+        sentence-transformers==2.2.2 \
+        wandb==0.13.4
 
 
 # ==================================================================
@@ -245,24 +256,21 @@
 
     sudo curl -sL https://deb.nodesource.com/setup_16.x | sudo bash
     sudo $APT_INSTALL nodejs
-    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git && \
-    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --sys-prefix
+    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git
+    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --user
 
 
 # ==================================================================
 # Config & Cleanup
 # ------------------------------------------------------------------
 
-    rm $HOME/anaconda3/lib/libtinfo.so.6
-    rm $HOME/anaconda3/lib/libncursesw.so.6
-
     echo "export PATH=${PATH}" >> ~/.bashrc
-    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bashrc
+    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bashrc
 
     echo "export PATH=${PATH}" >> ~/.profile
-    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.profile
+    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.profile
 
     echo "export PATH=${PATH}" >> ~/.bash_profile
-    echo "export LD_LIBRARY_PATH=${HOME}/anaconda3/lib" >> ~/.bash_profile
+    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bash_profile
 
 

@@ -39,6 +39,7 @@
 # opencv-python         4.6.0.66         (pip)
 # pyyaml                5.4.1            (pip)
 # sentence-transformers 2.2.2            (pip)
+# wandb                 0.13.4           (pip)
 # nodejs                16.x latest      (apt)
 # default-jre           latest           (apt)
 # default-jdk           latest           (apt)
@@ -102,30 +103,6 @@
 
 
 # ==================================================================
-# Conda
-# ------------------------------------------------------------------
-
-    #Based on https://docs.anaconda.com/anaconda/install/linux/
-
-    # sudo $APT_INSTALL libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
-    # sudo wget https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
-    # sudo bash ~/Anaconda3-2022.05-Linux-x86_64.sh -b -p $HOME/anaconda3
-    
-    # sudo chown -R $USER:$USER $HOME/anaconda3
-    # sudo chmod -R +x $HOME/anaconda3
-    
-    # source $HOME/anaconda3/bin/activate
-    # conda init bash
-    # conda deactivate
-    
-    # export PATH=$HOME/anaconda3/bin:${PATH}
-    
-    # $PIP_INSTALL pip
-    
-    # rm -f ~/Anaconda3-2022.05-Linux-x86_64.sh
-
-
-# ==================================================================
 # Python
 # ------------------------------------------------------------------
 
@@ -140,6 +117,7 @@
     DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
     python3.9 \
     python3.9-dev \
+    python3.9-venv \
     python3-distutils-extra
 
     # Add symlink so python and python3 commands use same python3.9 executable
@@ -157,6 +135,7 @@
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
     # Based on https://developer.nvidia.com/rdp/cudnn-archive
+
     wget https://developer.download.nvidia.com/compute/cuda/11.7.1/local_installers/cuda_11.7.1_515.65.01_linux.run
     sudo sh cuda_11.7.1_515.65.01_linux.run --silent --toolkit
     export PATH=$PATH:/usr/local/cuda-11.7/bin
@@ -249,7 +228,8 @@
         jsonify==0.5 \
         opencv-python==4.6.0.66 \
         pyyaml==5.4.1 \
-        sentence-transformers==2.2.2
+        sentence-transformers==2.2.2 \
+        wandb==0.13.4
 
 
 # ==================================================================
@@ -283,9 +263,6 @@
 # ==================================================================
 # Config & Cleanup
 # ------------------------------------------------------------------
-
-    # rm $HOME/anaconda3/lib/libtinfo.so.6
-    # rm $HOME/anaconda3/lib/libncursesw.so.6
 
     echo "export PATH=${PATH}" >> ~/.bashrc
     echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bashrc

@@ -11,13 +11,12 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | Category         | Software         | Version                | Install Method | Why / Notes |
 | -------------    | -------------    | -------------          | -------------  | ------------- |
 | GPU              | NVidia Driver    | 515.65.01              | pre-installed  | Enable Nvidia GPUs. Latest version as of VM creation date |
-|                  | CUDA             | 11.7.1                 | Conda          | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
+|                  | CUDA             | 11.7.1                 | Install script | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
+|                  | CUDA toolkit     | 11.7.1                 | Apt            | Needed for `nvcc` command for cuDNN. Installed with Conda CUDA installation |
 |                  | cuDNN            | 8.5.0.*-1+cuda11.7     | Ubuntu repo    | Nvidia GPU deep learning library |
-|                  | CUDA toolkit     | 11.7.1                 | Conda          | Needed for `nvcc` command for cuDNN. Installed with Conda CUDA installation |
-| Infra            | Anaconda         | 4.14.0                 | Ubuntu repo    | Package management system that installs Python3, pip, and other python packages |
-|                  | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Engine community edition |
+| Infra            | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Engine community edition |
 |                  | NVidia Docker    | 2.6.0-1                | pre-installed  | Enable NVidia GPU in Docker containers |
-| Python           | Python           | 3.9.12                 | Conda          | Most widely used programming language for data science. Version 3.9.12 is installed when downloading Anaconda3 and is compatible with other software and their versions installed here. |
+| Python           | Python           | 3.9.14                 | Apt            | Most widely used programming language for data science |
 |                  | pip3             | 22.2.2                 | Conda          | Enable easy installation of 1000s of other data science, etc., packages. Installed with Anaconda3 installation. |
 |                  | NumPy            | 1.23.2                 | pip3           | Handle arrays, matrices, etc., in Python |
 |                  | SciPy            | 1.9.1                  | pip3           | Fundamental algorithms for scientific computing in Python |
@@ -43,6 +42,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 |                  | opencv-python    | 4.6.0.66               | pip3           | Includes several hundreds of computer vision algorithms |  
 |                  | pyyaml           | 5.4.1                  | pip3           | YAML parser and emitter for Python |    
 |                  | JupyterLab       | 3.4.6                  | pip3           | De facto standard for data science using Jupyter notebooks |
+|                  | wandb            | 0.13.4                 | pip3           | CLI and library to interact with the Weights & Biases API (model tracking) |
 | Machine Learning | Scikit-learn     | 1.1.2                  | pip3           | Widely used ML library for data science, generally for smaller data or models |
 |                  | Scikit-image     | 0.19.3                 | pip3           | Collection of algorithms for image processing |
 |                  | TensorFlow       | 2.9.2                  | pip3           | Most widely used deep learning library, alongside PyTorch |
@@ -98,6 +98,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | jsonify               | MIT                    | https://pypi.org/project/jsonify/0.5/#data |
 | opencv-python         | MIT                    | https://github.com/opencv/opencv-python/blob/4.x/LICENSE.txt |
 | pyyaml                | MIT                    | https://github.com/yaml/pyyaml/blob/master/LICENSE |
+| wandb                 | MIT                    | https://github.com/wandb/wandb/blob/master/LICENSE |
 
 
 Information about license types:

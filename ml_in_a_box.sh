@@ -130,7 +130,7 @@
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 11.8.0 & CUDNN 8.5.0)
+# Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)
 # ------------------------------------------------------------------
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive

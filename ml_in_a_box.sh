@@ -267,10 +267,3 @@
     echo "export PATH=${PATH}" >> ~/.bashrc
     echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bashrc
 
-    echo "export PATH=${PATH}" >> ~/.profile
-    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.profile
-
-    echo "export PATH=${PATH}" >> ~/.bash_profile
-    echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bash_profile
-
-

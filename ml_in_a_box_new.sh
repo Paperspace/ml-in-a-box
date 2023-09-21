@@ -53,6 +53,7 @@
     export APT_INSTALL="apt-get install -y --no-install-recommends"
     export PIP_INSTALL="python -m pip --no-cache-dir install --upgrade"
     export GIT_CLONE="git clone --depth 10"
+    export DEBIAN_FRONTEND="noninteractive"
 
     # Update apt
     sudo apt update
@@ -130,7 +131,7 @@
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 11.7.1 & CUDNN 8.5.0)
+# Installing CUDA packages (CUDA Toolkit 12.2.2 & CUDNN 8.9.4)
 # ------------------------------------------------------------------
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
@@ -150,115 +151,115 @@
     sudo $APT_INSTALL libcudnn8-dev=8.9.4.*-1+cuda12.2
 
 
-# # ==================================================================
-# # PyTorch
-# # ------------------------------------------------------------------
+# ==================================================================
+# PyTorch
+# ------------------------------------------------------------------
 
-#     # Based on https://pytorch.org/get-started/locally/
+    # Based on https://pytorch.org/get-started/locally/
 
-    # $PIP_INSTALL torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+    $PIP_INSTALL torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
         
 
-# # ==================================================================
-# # JAX
-# # ------------------------------------------------------------------
+# ==================================================================
+# JAX
+# ------------------------------------------------------------------
 
-#     # Based on https://github.com/google/jax#pip-installation-gpu-cuda
+    # Based on https://github.com/google/jax#pip-installation-gpu-cuda
 
-#     $PIP_INSTALL "jax[cuda12_cudnn89]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-
-
-# # ==================================================================
-# # TensorFlow
-# # ------------------------------------------------------------------
-
-#     # Based on https://www.tensorflow.org/install/pip
-
-#     # export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
-#     $PIP_INSTALL tensorflow==2.13.0
+    $PIP_INSTALL "jax[cuda12_cudnn89]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 
-# # ==================================================================
-# # Hugging Face
-# # ------------------------------------------------------------------
+# ==================================================================
+# TensorFlow
+# ------------------------------------------------------------------
+
+    # Based on https://www.tensorflow.org/install/pip
+
+    # export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
+    $PIP_INSTALL tensorflow==2.13.0
+
+
+# ==================================================================
+# Hugging Face
+# ------------------------------------------------------------------
     
-#     # Based on https://huggingface.co/docs/transformers/installation
-#     # Based on https://huggingface.co/docs/datasets/installation
+    # Based on https://huggingface.co/docs/transformers/installation
+    # Based on https://huggingface.co/docs/datasets/installation
 
-#     $PIP_INSTALL transformers==4.33.2 datasets==2.14.5 peft==0.5.0 tokenizers 0.14.0 accelerate==0.23.0
-
-
-# # ==================================================================
-# # JupyterLab
-# # ------------------------------------------------------------------
-
-#     # Based on https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#pip
-
-    # $PIP_INSTALL jupyterlab==4.0.6
+    $PIP_INSTALL transformers==4.33.2 datasets==2.14.5 peft==0.5.0 tokenizers 0.14.0 accelerate==0.23.0
 
 
-# # ==================================================================
-# # Additional Python Packages
-# # ------------------------------------------------------------------
+# ==================================================================
+# JupyterLab
+# ------------------------------------------------------------------
 
-#     $PIP_INSTALL \
-        # bitsandbytes==0.41.1
-#         numpy==1.25.2 \
-#         scipy==1.11.2 \
-#         pandas==2.1.0 \
-#         cloudpickle==2.2.1 \
-#         scikit-image==0.21.0 \
-#         scikit-learn==1.3.0 \
-#         matplotlib==3.7.3 \
-#         ipython==8.15.0 \
-#         ipykernel==6.25.2 \
-#         ipywidgets==8.1.1 \
-#         cython==3.0.2 \
-#         tqdm==4.66.1 \
-#         gdown==4.7.1 \
-#         xgboost==1.7.6 \
-#         pillow==10.0.1 \
-#         seaborn==0.12.2 \
-#         sqlalchemy==2.0.21 \
-#         spacy==3.6.1 \
-#         nltk==3.8.1 \
-#         boto3==1.28.51 \
-#         tabulate==0.9.0 \
-#         future==0.18.3 \
-#         gradient==2.0.6 \
-#         jsonify==0.5 \
-#         opencv-python==4.8.0.76 \
-#         pyyaml==6.0.1 \
-#         sentence-transformers==2.2.2 \
-#         wandb==0.15.10
+    # Based on https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#pip
+
+    $PIP_INSTALL jupyterlab==4.0.6
 
 
-# # ==================================================================
-# # Installing JRE and JDK
-# # ------------------------------------------------------------------
+# ==================================================================
+# Additional Python Packages
+# ------------------------------------------------------------------
 
-#     sudo $APT_INSTALL default-jre
-#     sudo $APT_INSTALL default-jdk
+    $PIP_INSTALL \
+        bitsandbytes==0.41.1
+        numpy==1.25.2 \
+        scipy==1.11.2 \
+        pandas==2.1.0 \
+        cloudpickle==2.2.1 \
+        scikit-image==0.21.0 \
+        scikit-learn==1.3.0 \
+        matplotlib==3.7.3 \
+        ipython==8.15.0 \
+        ipykernel==6.25.2 \
+        ipywidgets==8.1.1 \
+        cython==3.0.2 \
+        tqdm==4.66.1 \
+        gdown==4.7.1 \
+        xgboost==1.7.6 \
+        pillow==10.0.1 \
+        seaborn==0.12.2 \
+        sqlalchemy==2.0.21 \
+        spacy==3.6.1 \
+        nltk==3.8.1 \
+        boto3==1.28.51 \
+        tabulate==0.9.0 \
+        future==0.18.3 \
+        gradient==2.0.6 \
+        jsonify==0.5 \
+        opencv-python==4.8.0.76 \
+        pyyaml==6.0.1 \
+        sentence-transformers==2.2.2 \
+        wandb==0.15.10
 
 
-# # ==================================================================
-# # CMake
-# # ------------------------------------------------------------------
+# ==================================================================
+# Installing JRE and JDK
+# ------------------------------------------------------------------
 
-#     sudo $GIT_CLONE https://github.com/Kitware/CMake ~/cmake
-#     cd ~/cmake
-#     sudo ./bootstrap
-#     sudo make -j"$(nproc)" install
+    sudo $APT_INSTALL default-jre
+    sudo $APT_INSTALL default-jdk
 
 
-# # ==================================================================
-# # Node.js and Jupyter Notebook Extensions
-# # ------------------------------------------------------------------
+# ==================================================================
+# CMake
+# ------------------------------------------------------------------
 
-#     sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
-#     sudo $APT_INSTALL nodejs
-#     $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git
-#     DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --user
+    sudo $GIT_CLONE https://github.com/Kitware/CMake ~/cmake
+    cd ~/cmake
+    sudo ./bootstrap
+    sudo make -j"$(nproc)" install
+
+
+# ==================================================================
+# Node.js and Jupyter Notebook Extensions
+# ------------------------------------------------------------------
+
+    sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
+    sudo $APT_INSTALL nodejs
+    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git
+    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --user
 
 
 # ==================================================================

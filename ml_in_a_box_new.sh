@@ -63,7 +63,7 @@
 # Tools
 # ------------------------------------------------------------------
 
-    DEBIAN_FRONTEND=noninteractive \
+    # DEBIAN_FRONTEND=noninteractive \
     sudo $APT_INSTALL \
         gcc \
         make \
@@ -100,14 +100,14 @@
         ffmpeg \
         libsm6 \
         libxext6 \
-        libboost-all-dev
-
+        libboost-all-dev \
+        gnupg
 
 # ==================================================================
 # Python
 # ------------------------------------------------------------------
 
-    #Based on https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+    # Based on https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 
     # Adding repository for python3.11
     DEBIAN_FRONTEND=noninteractive \
@@ -115,7 +115,7 @@
     sudo add-apt-repository ppa:deadsnakes/ppa -y
 
     # Installing python3.11
-    DEBIAN_FRONTEND=noninteractive sudo $APT_INSTALL \
+    sudo $APT_INSTALL \
     python3.11 \
     python3.11-dev \
     python3.11-venv \
@@ -131,24 +131,25 @@
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 12.2.2 & CUDNN 8.9.4)
+# Installing CUDA packages (CUDA Toolkit 12.1.1 & CUDNN 8.9.4)
 # ------------------------------------------------------------------
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
     # Based on https://developer.nvidia.com/rdp/cudnn-archive
 
-    wget https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda_12.2.2_535.104.05_linux.run
-    sudo sh cuda_12.2.2_535.104.05_linux.run --silent --toolkit
-    export PATH=$PATH:/usr/local/cuda-12.2/bin
-    export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64
-    rm cuda_12.2.2_535.104.05_linux.run
+    wget https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux.run
+    sudo sh cuda_12.1.1_530.30.02_linux.run --silent --toolkit
+    export PATH=$PATH:/usr/local/cuda-12.1/bin
+    export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64
+    rm cuda_12.1.1_530.30.02_linux.run
+
 
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
     sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
     sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
     sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-    sudo $APT_INSTALL libcudnn8=8.9.4.*-1+cuda12.2
-    sudo $APT_INSTALL libcudnn8-dev=8.9.4.*-1+cuda12.2
+    sudo $APT_INSTALL libcudnn8=8.9.4.*-1+cuda12.1
+    sudo $APT_INSTALL libcudnn8-dev=8.9.4.*-1+cuda12.1
 
 
 # ==================================================================
@@ -156,9 +157,13 @@
 # ------------------------------------------------------------------
 
     # Based on https://pytorch.org/get-started/locally/
-
-    $PIP_INSTALL torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+    
+    # Stable version
+    # $PIP_INSTALL torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
         
+    # Nightly version
+    $PIP_INSTALL --pre torch==2.2.0.dev20230921+cu121 torchvision==0.17.0.dev20230921+cu121 torchaudio==2.2.0.dev20230921+cu121 --index-url https://download.pytorch.org/whl/nightly/cu121
+
 
 # ==================================================================
 # JAX
@@ -166,7 +171,7 @@
 
     # Based on https://github.com/google/jax#pip-installation-gpu-cuda
 
-    $PIP_INSTALL "jax[cuda12_cudnn89]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    $PIP_INSTALL "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 
 
 # ==================================================================
@@ -175,7 +180,6 @@
 
     # Based on https://www.tensorflow.org/install/pip
 
-    # export LD_LIBRARY_PATH=${HOME}/anaconda3/lib
     $PIP_INSTALL tensorflow==2.13.0
 
 
@@ -186,7 +190,11 @@
     # Based on https://huggingface.co/docs/transformers/installation
     # Based on https://huggingface.co/docs/datasets/installation
 
-    $PIP_INSTALL transformers==4.33.2 datasets==2.14.5 peft==0.5.0 tokenizers 0.14.0 accelerate==0.23.0
+    $PIP_INSTALL transformers==4.33.2 \
+        datasets==2.14.5 \
+        peft==0.5.0 \
+        tokenizers==0.13.3 \
+        accelerate==0.23.0
 
 
 # ==================================================================
@@ -195,7 +203,7 @@
 
     # Based on https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html#pip
 
-    $PIP_INSTALL jupyterlab==4.0.6
+    $PIP_INSTALL jupyterlab==3.6.5
 
 
 # ==================================================================
@@ -203,8 +211,8 @@
 # ------------------------------------------------------------------
 
     $PIP_INSTALL \
-        bitsandbytes==0.41.1
-        numpy==1.25.2 \
+        bitsandbytes==0.41.1 \
+        numpy==1.24.3 \
         scipy==1.11.2 \
         pandas==2.1.0 \
         cloudpickle==2.2.1 \
@@ -229,9 +237,10 @@
         gradient==2.0.6 \
         jsonify==0.5 \
         opencv-python==4.8.0.76 \
-        pyyaml==6.0.1 \
+        pyyaml==5.4.1 \
         sentence-transformers==2.2.2 \
-        wandb==0.15.10
+        wandb==0.15.10 \ 
+        deepspeed==0.10.3
 
 
 # ==================================================================
@@ -255,11 +264,18 @@
 # ==================================================================
 # Node.js and Jupyter Notebook Extensions
 # ------------------------------------------------------------------
-
-    sudo curl -sL https://deb.nodesource.com/setup_20.x | sudo bash
+    
+    # Node.js
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+    export NODE_MAJOR=20
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    sudo apt-get update
     sudo $APT_INSTALL nodejs
+
+    # Jupyter Notebook Extensions
     $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git
-    DEBIAN_FRONTEND=noninteractive jupyter contrib nbextension install --user
+    jupyter contrib nbextension install --user
 
 
 # ==================================================================
@@ -268,4 +284,3 @@
 
     echo "export PATH=${PATH}" >> ~/.bashrc
     echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bashrc
-

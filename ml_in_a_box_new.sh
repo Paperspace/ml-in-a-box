@@ -101,7 +101,8 @@
         libsm6 \
         libxext6 \
         libboost-all-dev \
-        gnupg
+        gnupg \
+        cifs-utils
 
 # ==================================================================
 # Python
@@ -171,7 +172,8 @@
 
     # Based on https://github.com/google/jax#pip-installation-gpu-cuda
 
-    $PIP_INSTALL "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    $PIP_INSTALL "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
+        flax==0.7.4
 
 
 # ==================================================================
@@ -194,7 +196,9 @@
         datasets==2.14.5 \
         peft==0.5.0 \
         tokenizers==0.13.3 \
-        accelerate==0.23.0
+        accelerate==0.23.0 \
+        diffusers==0.21.3 \
+        timm==0.9.7
 
 
 # ==================================================================
@@ -239,8 +243,11 @@
         opencv-python==4.8.0.76 \
         pyyaml==5.4.1 \
         sentence-transformers==2.2.2 \
-        wandb==0.15.10 \ 
-        deepspeed==0.10.3
+        wandb==0.15.10 \
+        deepspeed==0.10.3 \
+        cupy-cuda12x==12.2.0
+       
+        
 
 
 # ==================================================================

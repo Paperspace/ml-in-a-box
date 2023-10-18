@@ -3,46 +3,57 @@
 # ==================================================================
 # Module list
 # ------------------------------------------------------------------
-# python                3.9.14           (apt)
-# torch                 1.12.1           (pip)
-# torchvision           0.13.1           (pip)
-# torchaudio            0.12.1           (pip)
-# tensorflow            2.9.2            (pip)
-# jax                   0.3.17           (pip)
-# transformers          4.21.3           (pip)
-# datasets              2.4.0            (pip)
-# jupyterlab            3.4.6            (pip)
-# numpy                 1.23.2           (pip)
-# scipy                 1.9.1            (pip)
-# pandas                1.4.4            (pip)
-# cloudpickle           2.1.0            (pip)
-# scikit-image          0.19.3           (pip)
-# scikit-learn          1.1.2            (pip)
-# matplotlib            3.5.3            (pip)
-# ipython               8.5.0            (pip)
-# ipykernel             6.15.2           (pip)
-# ipywidgets            8.0.2            (pip)
-# cython                0.29.32          (pip)
-# tqdm                  4.64.1           (pip)
-# gdown                 4.5.1            (pip)
-# xgboost               1.6.2            (pip)
-# pillow                9.2.0            (pip)
-# seaborn               0.12.0           (pip)
-# sqlalchemy            1.4.40           (pip)
-# spacy                 3.4.1            (pip)
-# nltk                  3.7              (pip)
-# boto3                 1.24.66          (pip)
-# tabulate              0.8.10           (pip)
-# future                0.18.2           (pip)
-# gradient              2.0.6            (pip)
-# jsonify               0.5              (pip)
-# opencv-python         4.6.0.66         (pip)
-# pyyaml                5.4.1            (pip)
-# sentence-transformers 2.2.2            (pip)
-# wandb                 0.13.4           (pip)
-# nodejs                16.x latest      (apt)
-# default-jre           latest           (apt)
-# default-jdk           latest           (apt)
+# python                        3.11.5           (apt)
+# torch                         2.1.0            (pip)
+# torchvision                   0.16.0           (pip)
+# torchaudio                    2.1.0            (pip)
+# tensorflow                    2.13.0           (pip)
+# jax                           0.3.17           (pip)
+# flax                          0.7.4            (pip)
+# transformers                  4.33.2           (pip)
+# datasets                      2.14.5           (pip)
+# peft                          0.5.0            (pip)
+# tokenizers                    0.14.1           (pip)
+# accelerate                    0.23.0           (pip)
+# diffusers                     0.21.4           (pip)
+# timm                          0.9.7            (pip)
+# jupyterlab                    3.6.5            (pip)
+# bitsandbytes                  0.41.1           (pip)
+# numpy                         1.24.3           (pip)
+# scipy                         1.11.2           (pip)
+# pandas                        2.1.0            (pip)
+# cloudpickle                   2.2.1            (pip)
+# scikit-image                  0.21.0           (pip)
+# scikit-learn                  1.3.0            (pip)
+# matplotlib                    3.7.3            (pip)
+# ipython                       8.15.0           (pip)
+# ipykernel                     6.25.2           (pip)
+# ipywidgets                    8.1.1            (pip)
+# cython                        3.0.2            (pip)
+# tqdm                          4.66.1           (pip)
+# gdown                         4.7.1            (pip)
+# xgboost                       1.7.6            (pip)
+# pillow                        10.0.1           (pip)
+# seaborn                       0.12.2           (pip)
+# sqlalchemy                    2.0.21           (pip)
+# spacy                         3.6.1            (pip)
+# nltk                          3.8.1            (pip)
+# boto3                         1.28.51          (pip)
+# tabulate                      0.9.0            (pip)
+# future                        0.18.3           (pip)
+# gradient                      2.0.6            (pip)
+# jsonify                       0.5              (pip)
+# opencv-python                 4.8.0.76         (pip)
+# pyyaml                        5.4.1            (pip)
+# sentence-transformers         2.2.2            (pip)
+# wandb                         0.15.10          (pip)
+# deepspeed                     0.10.3           (pip)
+# cupy-cuda12x                  12.2.0           (pip)
+# jupyter_contrib_nbextensions  0.7.0            (pip)
+# jupyterlab-git                0.43.0           (pip)
+# nodejs                        20.x latest      (apt)
+# default-jre                   latest           (apt)
+# default-jdk                   latest           (apt)
 
 
 # ==================================================================
@@ -63,7 +74,6 @@
 # Tools
 # ------------------------------------------------------------------
 
-    # DEBIAN_FRONTEND=noninteractive \
     sudo $APT_INSTALL \
         gcc \
         make \
@@ -111,7 +121,6 @@
     # Based on https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
 
     # Adding repository for python3.11
-    DEBIAN_FRONTEND=noninteractive \
     sudo $APT_INSTALL software-properties-common
     sudo add-apt-repository ppa:deadsnakes/ppa -y
 
@@ -132,25 +141,24 @@
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 12.1.1 & CUDNN 8.9.4)
+# Installing CUDA packages (CUDA Toolkit 12.2.1 & CUDNN 8.9.5)
 # ------------------------------------------------------------------
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
     # Based on https://developer.nvidia.com/rdp/cudnn-archive
 
-    wget https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux.run
-    sudo sh cuda_12.1.1_530.30.02_linux.run --silent --toolkit
-    export PATH=$PATH:/usr/local/cuda-12.1/bin
-    export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64
-    rm cuda_12.1.1_530.30.02_linux.run
+    wget https://developer.download.nvidia.com/compute/cuda/12.2.1/local_installers/cuda_12.2.1_535.86.10_linux.run
+    sudo sh cuda_12.2.1_535.86.10_linux.run --silent --toolkit
+    export PATH=$PATH:/usr/local/cuda-12.2/bin
+    export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64
+    rm cuda_12.2.1_535.86.10_linux.run
 
-
-    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-    sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-    sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-    sudo $APT_INSTALL libcudnn8=8.9.4.*-1+cuda12.1
-    sudo $APT_INSTALL libcudnn8-dev=8.9.4.*-1+cuda12.1
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
+    sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
+    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub
+    sudo add-apt-repository -y "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /"
+    sudo $APT_INSTALL libcudnn8=8.9.5.*-1+cuda12.2
+    sudo $APT_INSTALL libcudnn8-dev=8.9.5.*-1+cuda12.2
 
 
 # ==================================================================
@@ -159,12 +167,8 @@
 
     # Based on https://pytorch.org/get-started/locally/
     
-    # Stable version
-    # $PIP_INSTALL torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
-        
-    # Nightly version
-    $PIP_INSTALL --pre torch==2.2.0.dev20230921+cu121 torchvision==0.17.0.dev20230921+cu121 torchaudio==2.2.0.dev20230921+cu121 --index-url https://download.pytorch.org/whl/nightly/cu121
-
+    $PIP_INSTALL torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0
+    
 
 # ==================================================================
 # JAX
@@ -186,18 +190,15 @@
 
 
 # ==================================================================
-# Hugging Face
+# Hugging Face Libraries
 # ------------------------------------------------------------------
     
-    # Based on https://huggingface.co/docs/transformers/installation
-    # Based on https://huggingface.co/docs/datasets/installation
-
     $PIP_INSTALL transformers==4.33.2 \
         datasets==2.14.5 \
         peft==0.5.0 \
-        tokenizers==0.13.3 \
+        tokenizers==0.14.1 \
         accelerate==0.23.0 \
-        diffusers==0.21.3 \
+        diffusers==0.21.4 \
         timm==0.9.7
 
 
@@ -247,8 +248,6 @@
         deepspeed==0.10.3 \
         cupy-cuda12x==12.2.0
        
-        
-
 
 # ==================================================================
 # Installing JRE and JDK
@@ -281,7 +280,7 @@
     sudo $APT_INSTALL nodejs
 
     # Jupyter Notebook Extensions
-    $PIP_INSTALL jupyter_contrib_nbextensions jupyterlab-git
+    $PIP_INSTALL jupyter_contrib_nbextensions==0.7.0 jupyterlab-git==0.43.0
     jupyter contrib nbextension install --user
 
 

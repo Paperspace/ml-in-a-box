@@ -50,6 +50,7 @@
 # deepspeed                     0.10.3           (pip)
 # cupy-cuda12x                  12.2.0           (pip)
 # safetensors                   0.4.0            (pip)
+# omegaconf                     2.3.0            (pip) 
 # jupyter_contrib_nbextensions  0.7.0            (pip)
 # jupyterlab-git                0.43.0           (pip)
 # nodejs                        20.x latest      (apt)
@@ -250,7 +251,8 @@
         wandb==0.15.10 \
         deepspeed==0.10.3 \
         cupy-cuda12x==12.2.0 \ 
-        safetensors==0.4.0
+        safetensors==0.4.0 \ 
+        omegaconf==2.3.0
        
 
 # ==================================================================

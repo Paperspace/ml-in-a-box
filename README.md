@@ -43,7 +43,8 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 |                  | pyyaml           | 5.4.1                  | pip3           | YAML parser and emitter for Python |
 |                  | timm             | 0.9.7                  | pip3           | Deep-learning library that hosts a collection of SOTA computer vision models and tools |     
 |                  | JupyterLab       | 3.4.6                  | pip3           | De facto standard for data science using Jupyter notebooks |
-|                  | wandb            | 0.15.10                 | pip3           | CLI and library to interact with the Weights & Biases API (model tracking) |
+|                  | wandb            | 0.15.10                | pip3           | CLI and library to interact with the Weights & Biases API (model tracking) |
+|                  | OmegaConf        | 2.3.0                  | pip3           | A hierarchical configuration system, with support for merging configurations from multiple sources |
 | Machine Learning | Scikit-learn     | 1.3.0                  | pip3           | Widely used ML library for data science, generally for smaller data or models |
 |                  | Scikit-image     | 0.21.0                 | pip3           | Collection of algorithms for image processing |
 |                  | TensorFlow       | 2.9.2                  | pip3           | Most widely used deep learning library, alongside PyTorch |
@@ -116,6 +117,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | opencv-python         | MIT                    | https://github.com/opencv/opencv-python/blob/4.x/LICENSE.txt |
 | pyyaml                | MIT                    | https://github.com/yaml/pyyaml/blob/master/LICENSE |
 | wandb                 | MIT                    | https://github.com/wandb/wandb/blob/master/LICENSE |
+| OmegaConf             | New BSD                | https://github.com/omry/omegaconf/blob/master/LICENSE |
 
 
 Information about license types:

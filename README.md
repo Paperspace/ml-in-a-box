@@ -10,10 +10,10 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 
 | Category         | Software         | Version                | Install Method | Why / Notes |
 | -------------    | -------------    | -------------          | -------------  | ------------- |
-| GPU              | NVidia Driver    | 535.86.10              | pre-installed  | Enable Nvidia GPUs. Latest version as of VM creation date |
-|                  | CUDA             | 12.2.1                 | Install script | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
-|                  | CUDA toolkit     | 12.2.1                 | Apt            | Needed for `nvcc` command for cuDNN |
-|                  | cuDNN            | 8.9.5.*-1+cuda12.2     | Ubuntu repo    | Nvidia GPU deep learning library |
+| GPU              | NVidia Driver    | 535.104.12              | pre-installed  | Enable Nvidia GPUs. Latest version as of VM creation date |
+|                  | CUDA             | 12.1.1                 | Install script | Nvidia A100 GPUs require CUDA 11+ to work, so 10.x is not suitable |
+|                  | CUDA toolkit     | 12.1.1                 | Apt            | Needed for `nvcc` command for cuDNN |
+|                  | cuDNN            | 8.9.4.*-1+cuda12.1     | Ubuntu repo    | Nvidia GPU deep learning library |
 | Infra            | Docker Engine CE | 20.10.8, build 3967b7d | pre-installed  | Docker Engine community edition |
 |                  | NVidia Docker    | 2.6.0-1                | pre-installed  | Enable NVidia GPU in Docker containers |
 | Python           | Python           | 3.11.5                 | Apt            | Most widely used programming language for data science |
@@ -55,6 +55,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 |                  | Tokenizers       | 0.14.1                  | pip3           | A Hugging Face library supporting implementations of tokenizers |
 |                  | Accelerate       | 0.23.0                  | pip3           | A Hugging Face library used to support model training by abstracting boilerplate code |
 |                  | Diffusers        | 0.21.4                  | pip3           | A Hugging Face library used for implementation of diffusion models |
+|                  | Safetensors        | 0.4.0                  | pip3           | A Hugging Face library to store tensors safely |
 |                  | Deepspeed        | 2.4.0                  | pip3           | A DL optimization library for PyTorch designed to train large distrubuted models with better parallelism |
 |                  | BitsandBytes          | 0.41.1                  | pip3           | A lightweight wrapper around CUDA custom functions, in particular 8-bit optimizers |
 |                  | XGBoost          | 1.7.6                  | pip3           | An optimized distributed gradient boosting library |
@@ -88,6 +89,7 @@ We assume a generic advanced data science user who probably wants GPU access, bu
 | Tokenizers            | Apache 2.0             | https://github.com/huggingface/tokenizers/blob/main/LICENSE |
 | Accelerate            | Apache 2.0             | https://github.com/huggingface/accelerate/blob/main/LICENSE |
 | Diffusers             | Apache 2.0             | https://github.com/huggingface/diffusers/blob/main/LICENSE |
+| Safetensors           | Apache 2.0             | https://github.com/huggingface/safetensors/blob/main/LICENSE |
 | Deepspeed             | Apache 2.0             | https://github.com/microsoft/DeepSpeed/blob/master/LICENSE |
 | BitsandBytes          | MIT                    | https://github.com/TimDettmers/bitsandbytes/blob/main/LICENSE |
 | CuPyCUDA12x           | MIT                    | https://github.com/cupy/cupy/blob/main/LICENSE |

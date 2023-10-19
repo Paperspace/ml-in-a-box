@@ -49,6 +49,7 @@
 # wandb                         0.15.10          (pip)
 # deepspeed                     0.10.3           (pip)
 # cupy-cuda12x                  12.2.0           (pip)
+# safetensors                   0.4.0            (pip)
 # jupyter_contrib_nbextensions  0.7.0            (pip)
 # jupyterlab-git                0.43.0           (pip)
 # nodejs                        20.x latest      (apt)
@@ -141,24 +142,26 @@
 
 
 # ==================================================================
-# Installing CUDA packages (CUDA Toolkit 12.2.1 & CUDNN 8.9.5)
+# Installing CUDA packages (CUDA Toolkit 12.1.1 & CUDNN 8.9.4)
 # ------------------------------------------------------------------
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
     # Based on https://developer.nvidia.com/rdp/cudnn-archive
 
-    wget https://developer.download.nvidia.com/compute/cuda/12.2.1/local_installers/cuda_12.2.1_535.86.10_linux.run
-    sudo sh cuda_12.2.1_535.86.10_linux.run --silent --toolkit
-    export PATH=$PATH:/usr/local/cuda-12.2/bin
-    export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64
-    rm cuda_12.2.1_535.86.10_linux.run
+    wget https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux.run
+    sudo cuda_12.1.1_530.30.02_linux.run --silent --toolkit
+    export PATH=$PATH:/usr/local/cuda/bin
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+    rm cuda_12.1.1_530.30.02_linux.run
 
-    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin
-    sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600
-    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub
-    sudo add-apt-repository -y "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /"
-    sudo $APT_INSTALL libcudnn8=8.9.5.*-1+cuda12.2
-    sudo $APT_INSTALL libcudnn8-dev=8.9.5.*-1+cuda12.2
+
+    # When CUDNN file is on machine:
+    tar -xf cudnn-linux-x86_64-8.9.4.25_cuda12-archive.tar.xz 
+    sudo cp cudnn-linux-x86_64-8.9.4.25_cuda12-archive/include/cudnn*.h /usr/local/cuda/include/
+    sudo cp -P cudnn-linux-x86_64-8.9.4.25_cuda12-archive/lib/libcudnn* /usr/local/cuda/lib64/
+    sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+    rm cudnn-linux-x86_64-8.9.4.25_cuda12-archive.tar.xz
+    rm -r cudnn-linux-x86_64-8.9.4.25_cuda12-archive
 
 
 # ==================================================================
@@ -246,7 +249,8 @@
         sentence-transformers==2.2.2 \
         wandb==0.15.10 \
         deepspeed==0.10.3 \
-        cupy-cuda12x==12.2.0
+        cupy-cuda12x==12.2.0 \ 
+        safetensors==0.4.0
        
 
 # ==================================================================

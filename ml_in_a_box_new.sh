@@ -8,8 +8,6 @@
 # torchvision                   0.16.0           (pip)
 # torchaudio                    2.1.0            (pip)
 # tensorflow                    2.13.0           (pip)
-# jax                           0.3.17           (pip)
-# flax                          0.7.4            (pip)
 # transformers                  4.33.2           (pip)
 # datasets                      2.14.5           (pip)
 # peft                          0.5.0            (pip)
@@ -114,7 +112,17 @@
         libxext6 \
         libboost-all-dev \
         gnupg \
-        cifs-utils
+        cifs-utils \
+        zlib1g
+
+
+# ==================================================================
+# Git-lfs
+# ------------------------------------------------------------------
+    
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash \
+    sudo $APT_INSTALL git-lfs
+
 
 # ==================================================================
 # Python
@@ -137,8 +145,11 @@
     sudo ln -s /usr/bin/python3.11 /usr/local/bin/python3
     sudo ln -s /usr/bin/python3.11 /usr/local/bin/python
 
-    # Installing pip
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+    # Grant access for pip to install in ~/.local
+    sudo chmod -R a+rwx /home/paperspace/.local
+    
+    # Install pip
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3
     export PATH=$PATH:/home/paperspace/.local/bin
 
 
@@ -147,22 +158,22 @@
 # ------------------------------------------------------------------
 
     # Based on https://developer.nvidia.com/cuda-toolkit-archive
-    # Based on https://developer.nvidia.com/rdp/cudnn-archive
+    # Based on https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html
 
     wget https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux.run
-    sudo cuda_12.1.1_530.30.02_linux.run --silent --toolkit
+    sudo sh cuda_12.1.1_530.30.02_linux.run --silent --toolkit
     export PATH=$PATH:/usr/local/cuda/bin
-    export LD_LIBRARY_PATH=/usr/local/cuda/lib64
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    export CUDA_HOME=/usr/local/cuda
     rm cuda_12.1.1_530.30.02_linux.run
 
-
-    # When CUDNN file is on machine:
-    tar -xf cudnn-linux-x86_64-8.9.4.25_cuda12-archive.tar.xz 
-    sudo cp cudnn-linux-x86_64-8.9.4.25_cuda12-archive/include/cudnn*.h /usr/local/cuda/include/
-    sudo cp -P cudnn-linux-x86_64-8.9.4.25_cuda12-archive/lib/libcudnn* /usr/local/cuda/lib64/
-    sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
-    rm cudnn-linux-x86_64-8.9.4.25_cuda12-archive.tar.xz
-    rm -r cudnn-linux-x86_64-8.9.4.25_cuda12-archive
+    # When cudnn-local*.deb file is on machine:
+    sudo dpkg -i cudnn-local-repo-ubuntu2204-8.9.5.29_1.0-1_amd64.deb
+    sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
+    sudo apt-get update
+    sudo $APT_INSTALL libcudnn8=8.9.5.29-1+cuda12.2
+    sudo $APT_INSTALL libcudnn8-dev=8.9.5.29-1+cuda12.2
+    rm cudnn-local-repo-ubuntu2204-8.9.5.29_1.0-1_amd64.deb
 
 
 # ==================================================================
@@ -180,8 +191,8 @@
 
     # Based on https://github.com/google/jax#pip-installation-gpu-cuda
 
-    $PIP_INSTALL "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
-        flax==0.7.4
+    # $PIP_INSTALL "jax[cuda12_pip]" -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html \
+    #     flax==0.7.4
 
 
 # ==================================================================
@@ -197,10 +208,10 @@
 # Hugging Face Libraries
 # ------------------------------------------------------------------
     
-    $PIP_INSTALL transformers==4.33.2 \
+    $PIP_INSTALL transformers==4.33.3 \
         datasets==2.14.5 \
         peft==0.5.0 \
-        tokenizers==0.14.1 \
+        tokenizers==0.13.3 \
         accelerate==0.23.0 \
         diffusers==0.21.4 \
         timm==0.9.7
@@ -235,7 +246,7 @@
         tqdm==4.66.1 \
         gdown==4.7.1 \
         xgboost==1.7.6 \
-        pillow==10.0.1 \
+        pillow==9.5.0 \
         seaborn==0.12.2 \
         sqlalchemy==2.0.21 \
         spacy==3.6.1 \
@@ -250,9 +261,10 @@
         sentence-transformers==2.2.2 \
         wandb==0.15.10 \
         deepspeed==0.10.3 \
-        cupy-cuda12x==12.2.0 \ 
-        safetensors==0.4.0 \ 
-        omegaconf==2.3.0
+        cupy-cuda12x==12.2.0 \
+        safetensors==0.4.0 \
+        omegaconf==2.3.0 \
+        attrs==23.1.0
        
 
 # ==================================================================
@@ -296,3 +308,4 @@
 
     echo "export PATH=${PATH}" >> ~/.bashrc
     echo "export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" >> ~/.bashrc
+    echo "export CUDA_HOME=${CUDA_HOME}" >> ~/.bashrc
